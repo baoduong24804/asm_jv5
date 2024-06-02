@@ -8,11 +8,11 @@ import org.springframework.context.annotation.ComponentScans;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-@ComponentScan(basePackages = {"com.controller", "com.utils"})
-@EnableJpaRepositories(basePackages = "com.repository")
-
-@ComponentScans(value = {@ComponentScan("com.controller"), @ComponentScan("com.service"),@ComponentScan("com.utils")})
-@EntityScan(basePackages = "com.model")
+//@ComponentScan(basePackages = {"com.main.service"})
+@EnableJpaRepositories(basePackages = "com.main.repository")
+//
+@ComponentScans(value = {@ComponentScan("com.main.controller"), @ComponentScan("com.main.service")})
+@EntityScan(basePackages = "com.main.model")
 public class AsmJava5V1Application {
 
 	public static void main(String[] args) {

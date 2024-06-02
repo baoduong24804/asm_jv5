@@ -1,6 +1,6 @@
 package com.utils;
 
-import com.model.NguoiDung;
+import com.main.model.NguoiDung;
 
 public class UserCurrent {
 	private static NguoiDung nguoiDung;
