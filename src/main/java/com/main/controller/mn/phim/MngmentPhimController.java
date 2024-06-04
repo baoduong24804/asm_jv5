@@ -1,10 +1,9 @@
-package com.main.controller;
+package com.main.controller.mn.phim;
 
 import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -18,13 +17,13 @@ import com.main.service.PhimService;
 import com.main.service.TapPhimService;
 
 
-@Controller
-@RequestMapping("animu/control")
+//@Controller
+@RequestMapping("")
 public class MngmentPhimController {
 	@Autowired PhimService phimService;
 	@Autowired TapPhimService tapPhimService;
 	
-	@GetMapping("phim")
+	@GetMapping("")
 	public String getMethodName(Model model,@RequestParam(name = "idphim",required = false) Integer idphim,
 			@ModelAttribute(name = "phim") Phim phim,
 			@ModelAttribute(name = "chitietphim") ChiTietPhim chiTietPhim,

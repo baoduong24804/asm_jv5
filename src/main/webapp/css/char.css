@@ -1,0 +1,36 @@
+body {
+	background-color: #f4f4f4;
+	font-family: 'Roboto', sans-serif;
+}
+
+.card {
+	margin: 20px 0;
+	border: none;
+	border-radius: 15px;
+}
+
+.card-body {
+	padding: 30px;
+	border-radius: 15px;
+	text-align: center;
+}
+
+.card-body h5 {
+	font-size: 1.2rem;
+	font-weight: 600;
+}
+
+.card-body h3 {
+	font-size: 2.5rem;
+	font-weight: 700;
+}
+
+.card-users {
+	background: linear-gradient(135deg, #36A2EB, #007BFF);
+	color: white;
+}
+
+.card-movies {
+	background: linear-gradient(135deg, #FF6384, #FF0000);
+	color: white;
+}

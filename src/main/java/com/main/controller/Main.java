@@ -38,7 +38,7 @@ public class Main {
 	@ResponseBody
 	@GetMapping("")
 	public String getMethodName(Model model) {
-		StringBuilder s = new StringBuilder();
+//		StringBuilder s = new StringBuilder();
 //		s.append(chiTietNguoiDungRepository.findAll().toString());
 		//s.append(chiTietPhimRepository.findAll());
 //		s.append(nguoiDungRepository.findAll().toString());
