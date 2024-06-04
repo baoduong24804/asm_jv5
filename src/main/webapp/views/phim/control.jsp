@@ -14,64 +14,10 @@
 <script src="https://kit.fontawesome.com/11f5ba3935.js"
 	crossorigin="anonymous"></script>
 
+<link rel="stylesheet" type="text/css" href="/css/control.css">
+
 </head>
-<style>
-.white-hr {
-	border: none;
-	height: 2px;
-	background-color: white;
-}
 
-.form-section {
-	display: none;
-}
-
-.form-section.active {
-	display: block;
-}
-
-.sidebar-sticky {
-	height: 100%;
-	overflow-y: auto;
-}
-
-.sidebar-sticky {
-	position: -webkit-sticky;
-	position: sticky;
-	top: 0;
-	height: 100vh;
-	padding-top: 20px;
-}
-
-.sidebar-sticky ul {
-	padding-left: 0;
-}
-
-.sidebar-sticky li {
-	transition: all 0.3s ease;
-}
-
-.sidebar-sticky li:hover {
-	transform: translateX(10px);
-}
-
-.sidebar-sticky .nav-link {
-	display: flex;
-	align-items: center;
-}
-
-.sidebar-sticky .nav-link i {
-	margin-right: 10px;
-}
-
-#mainview {
-	display: none;
-}
-
-#hiddenInp {
-	display: none;
-}
-</style>
 
 <body>
 	<div class="container-fluid">
@@ -100,6 +46,11 @@
 			</nav>
 			<main id="main" role="main"
 				class="col-md-10 ml-sm-auto col-lg-10 px-4">
+
+				<div id="loading-spinner" class="spinner-container">
+					<div class="spinner"></div>
+				</div>
+
 				<div id="mainview">
 					<div id="charview">
 						<%@ include file="./mn/_char.jsp"%>
@@ -139,7 +90,6 @@
 	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
 	<script>
-		
 		const navs = document.querySelectorAll('.menu-item');
 		const phimview = document.getElementById('phimview');
 		const charview = document.getElementById('charview');
@@ -155,18 +105,22 @@
 		function load() {
 			const mainview = document.getElementById('mainview');
 			//mainview.style.display = 'none';
+
+			// Hide the loading spinner
+			document.getElementById("loading-spinner").style.display = "none";
+			// Show the main content
 			mainview.style.display = 'block';
 		}
-	
-		window.onload = load;
-		
-		
+
+		window.onload = load;// goi ham load khi toan bo trang web bao gồm ảnh... tải xong 
+
 		window.addEventListener('load', function() {
+			//load();
 			reload();
+
 		});
 
 		function reload() {
-			
 
 			phimview.style.display = 'none';
 			charview.style.display = 'none';
@@ -175,8 +129,6 @@
 			nhasxview.style.display = 'none';
 			phanloaiview.style.display = 'none';
 
-			
-			
 			var currentUrl = window.location.href;
 			if (currentUrl.endsWith('/control')) {
 				charview.style.display = 'block';

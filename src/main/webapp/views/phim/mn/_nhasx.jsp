@@ -1,109 +1,84 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!-- Form Chi tiết Phim -->
-<div id="chitietphim-form" class="form-section active">
-	<ul class="nav nav-tabs" id="chitietphimTab" role="tablist">
+<div id="nhasx-form" class="form-section active">
+	<ul class="nav nav-tabs" id="nhasxTab" role="tablist">
 		<li class="nav-item"><a class="nav-link active"
-			id="chitietphim-edition-tab" data-toggle="tab"
-			href="#chitietphim-edition" role="tab">Chỉnh sửa</a></li>
+			id="nhasx-edition-tab" data-toggle="tab"
+			href="#nhasx-edition" role="tab">Chỉnh sửa</a></li>
 		<li class="nav-item"><a class="nav-link"
-			id="chitietphim-list-tab" data-toggle="tab" href="#chitietphim-list"
+			id="nhasx-list-tab" data-toggle="tab" href="#nhasx-list"
 			role="tab">Danh sách</a></li>
 	</ul>
 	<div class="tab-content">
-		<div class="tab-pane fade show active" id="chitietphim-edition"
+		<div class="tab-pane fade show active" id="nhasx-edition"
 			role="tabpanel">
 			<h2 class="mt-3">Chỉnh sửa Nhà sản xuất</h2>
-			<f:form action="phim" modelAttribute="chitietphim" method="get">
+			<f:form action="phim/edit/nhasx" modelAttribute="nhasanxuat" method="post">
 				<div class="form-group">
-					<label for="chitietphim-idphim">ID phim:</label>
+					<label for="">ID nhà sản xuất:</label>
 
-					<f:input path="idphim" cssClass="form-control"
-						value="${chiTietPhim.idphim }" />
+					<f:input path="idnhasxvadv" cssClass="form-control"
+						value="${nhasanxuat.idnhasxvadv }" />
 				</div>
 				<div class="form-group">
-					<label for="chitietphim-tengoc">Tên gốc:</label>
-					<f:input path="tengoc" cssClass="form-control"
-						value="${chiTietPhim.tengoc }" />
+					<label for="">ID phim:</label>
+					<f:input path="idphim" cssClass="form-control"
+						value="${nhasanxuat.idphim }" />
 
 				</div>
 				<div class="row">
 					<div class="form-group col-md-6">
-						<label for="chitietphim-tongsotap">Tổng số tập:</label>
-						<f:input path="tongsotap" cssClass="form-control"
-							value="${chiTietPhim.tongsotap }" />
+						<label for="">Vai trò:</label>
+						
+						<input disabled="disabled" type="text" value="${nhasanxuat.vaitro == true ? 'Tác giả' : 'Nhà sản xuất' }">
 
 					</div>
-					<div class="form-group col-md-6">
-						<label for="chitietphim-tapmoinhat">Tập mới nhất:</label>
-						<f:input path="tapmoinhat" cssClass="form-control"
-							value="${chiTietPhim.tapmoinhat }" />
+					<div class="form-group col-md-12">
+						<label for="">Thông tin:</label>
+						<textarea name="ten" rows="3" style="width: 100%">${nhasanxuat.ten }</textarea>
 
 					</div>
 				</div>
-				<div class="form-group">
-					<label for="chitietphim-thoigian">Thời gian:</label>
-					<f:input path="thoigian" cssClass="form-control"
-						value="${chiTietPhim.thoigian }" />
-
-				</div>
-				<div class="form-group">
-					<label for="chitietphim-chatluong">Chất lượng:</label>
-					<f:input path="chatluong" cssClass="form-control"
-						value="${chiTietPhim.chatluong }" />
-
-				</div>
-				<div class="form-group">
-					<label for="chitietphim-mota">Mô tả:</label> <br>
-
-
-					<textarea name="mota" rows="3" style="width: 100%">${chiTietPhim.mota }</textarea>
-
-
-				</div>
-
-
-				<button type="submit" name="btn-chitiet" value="true"
-					class="btn btn-primary">Lưu</button>
+				
+				
+				<button type="submit" name="btn-sua-nhasx" value="true"
+					class="btn btn-success">Chỉnh sữa</button>
 			</f:form>
 			<form></form>
 		</div>
-		<div class="tab-pane fade" id="chitietphim-list" role="tabpanel">
+		<div class="tab-pane fade" id="nhasx-list" role="tabpanel">
 			<h2 class="mt-3">Danh sách Nhà sản xuất</h2>
 			<table class="table table-bordered">
 				<thead>
 					<tr>
-						<th>ID phim</th>
-						<th>Tên gốc</th>
-						<th>Tổng số tập</th>
+						<th>ID Nhà SX và DV</th>
+						<th>ID Phim</th>
+						<th>Vai trò</th>
 
-						<th>Tập mới nhất</th>
-						<th>Thời gian</th>
-						<th>Chất lượng</th>
-
-						<th>Ngày chỉnh sửa</th>
-
-						<th>Mô tả</th>
+						<th>Thông tin</th>
+						
 						<th>Khác</th>
 					</tr>
 				</thead>
 				<tbody>
 					<!-- Dữ liệu thêm cho chơi -->
-					<c:if test="${not empty chiTietPhim }">
-
-						<tr>
-							<td>${chiTietPhim.idphim }</td>
-							<td>${chiTietPhim.tengoc }</td>
-							<td>${chiTietPhim.tongsotap }</td>
-							<td>${chiTietPhim.tapmoinhat }</td>
-							<td>${chiTietPhim.thoigian }</td>
-							<td>${chiTietPhim.chatluong }</td>
-							<td>${chiTietPhim.ngaychinhsua }</td>
-							<td>${chiTietPhim.mota }</td>
+					
+					<c:forEach items="${nhaXSVaDienViens }" var="item">
+					
+					<tr>
+							<td>${item.idnhasxvadv }</td>
+							<td>${item.idphim }</td>
+							<td>${item.vaitro == true ? 'Tác giả' : 'Nhà sản xuất' }</td>
+							<td>${item.ten }</td>
+							
 							<td><a class="btn btn-primary"
-								href="phim?action=2&idphim=${chiTietPhim.idphim }">Chỉnh sửa</a></td>
+								href="phim/edit/nhasx/${item.idnhasxvadv }">Chỉnh sửa</a></td>
 						</tr>
-					</c:if>
+					</c:forEach>
+
+						
+					
 
 
 

@@ -1,107 +1,88 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!-- Form Chi tiết Phim -->
-<div id="chitietphim-form" class="form-section active">
-	<ul class="nav nav-tabs" id="chitietphimTab" role="tablist">
+<div id="phanloai-form" class="form-section active">
+	<ul class="nav nav-tabs" id="phanloaiTab" role="tablist">
 		<li class="nav-item"><a class="nav-link active"
-			id="chitietphim-edition-tab" data-toggle="tab"
-			href="#chitietphim-edition" role="tab">Chỉnh sửa</a></li>
+			id="phanloai-edition-tab" data-toggle="tab"
+			href="#phanloai-edition" role="tab">Chỉnh sửa</a></li>
 		<li class="nav-item"><a class="nav-link"
-			id="chitietphim-list-tab" data-toggle="tab" href="#chitietphim-list"
+			id="phanloai-list-tab" data-toggle="tab" href="#phanloai-list"
 			role="tab">Danh sách</a></li>
 	</ul>
 	<div class="tab-content">
-		<div class="tab-pane fade show active" id="chitietphim-edition"
+		<div class="tab-pane fade show active" id="phanloai-edition"
 			role="tabpanel">
 			<h2 class="mt-3">Chỉnh sửa Phân loại</h2>
-			<f:form action="phim" modelAttribute="chitietphim" method="get">
+			<f:form action="phim/edit/phanloai" modelAttribute="phanLoai" method="post">
 				<div class="form-group">
-					<label for="chitietphim-idphim">ID phim:</label>
+					<label for="">ID phim:</label>
 
 					<f:input path="idphim" cssClass="form-control"
-						value="${chiTietPhim.idphim }" />
+						value="${phanLoai.idphim }" />
 				</div>
 				<div class="form-group">
-					<label for="chitietphim-tengoc">Tên gốc:</label>
-					<f:input path="tengoc" cssClass="form-control"
-						value="${chiTietPhim.tengoc }" />
+					<label for="">Loại phim( ngăn cách bằng dấu phẩy ',' ):</label>
+					<f:input path="loaiphim" cssClass="form-control"
+						value="${phanLoai.loaiphim }" />
 
 				</div>
 				<div class="row">
 					<div class="form-group col-md-6">
-						<label for="chitietphim-tongsotap">Tổng số tập:</label>
-						<f:input path="tongsotap" cssClass="form-control"
-							value="${chiTietPhim.tongsotap }" />
+						<label for="">Thể loại( ngăn cách bằng dấu phẩy ',' ):</label>
+						<f:input path="theloai" cssClass="form-control"
+							value="${phanLoai.theloai }" />
 
 					</div>
 					<div class="form-group col-md-6">
-						<label for="chitietphim-tapmoinhat">Tập mới nhất:</label>
-						<f:input path="tapmoinhat" cssClass="form-control"
-							value="${chiTietPhim.tapmoinhat }" />
+						<label for="">Quốc gia( ngăn cách bằng dấu phẩy ',' ):</label>
+						<f:input path="quocgia" cssClass="form-control"
+							value="${phanLoai.quocgia }" />
 
 					</div>
 				</div>
 				<div class="form-group">
-					<label for="chitietphim-thoigian">Thời gian:</label>
-					<f:input path="thoigian" cssClass="form-control"
-						value="${chiTietPhim.thoigian }" />
-
-				</div>
-				<div class="form-group">
-					<label for="chitietphim-chatluong">Chất lượng:</label>
-					<f:input path="chatluong" cssClass="form-control"
-						value="${chiTietPhim.chatluong }" />
-
-				</div>
-				<div class="form-group">
-					<label for="chitietphim-mota">Mô tả:</label> <br>
-
-
-					<textarea name="mota" rows="3" style="width: 100%">${chiTietPhim.mota }</textarea>
-
+					<label for="">Năm:</label>
+					<f:input path="nam" cssClass="form-control"
+						value="${phanLoai.nam }" />
 
 				</div>
 
 
-				<button type="submit" name="btn-chitiet" value="true"
-					class="btn btn-primary">Lưu</button>
+				<button type="submit" name="btn-sua-phanloai" value="true"
+					class="btn btn-success">Chỉnh sửa</button>
 			</f:form>
 			<form></form>
 		</div>
-		<div class="tab-pane fade" id="chitietphim-list" role="tabpanel">
+		<div class="tab-pane fade" id="phanloai-list" role="tabpanel">
 			<h2 class="mt-3">Danh sách Phân loại</h2>
 			<table class="table table-bordered">
 				<thead>
 					<tr>
 						<th>ID phim</th>
-						<th>Tên gốc</th>
-						<th>Tổng số tập</th>
+						<th>Loại phim</th>
+						<th>Thể loại</th>
 
-						<th>Tập mới nhất</th>
-						<th>Thời gian</th>
-						<th>Chất lượng</th>
-
-						<th>Ngày chỉnh sửa</th>
-
-						<th>Mô tả</th>
+						<th>Quốc gia</th>
+						<th>Năm</th>
+						
 						<th>Khác</th>
 					</tr>
 				</thead>
 				<tbody>
 					<!-- Dữ liệu thêm cho chơi -->
-					<c:if test="${not empty chiTietPhim }">
+					
+					<c:if test="${not empty phanloai }">
 
 						<tr>
-							<td>${chiTietPhim.idphim }</td>
-							<td>${chiTietPhim.tengoc }</td>
-							<td>${chiTietPhim.tongsotap }</td>
-							<td>${chiTietPhim.tapmoinhat }</td>
-							<td>${chiTietPhim.thoigian }</td>
-							<td>${chiTietPhim.chatluong }</td>
-							<td>${chiTietPhim.ngaychinhsua }</td>
-							<td>${chiTietPhim.mota }</td>
+							<td>${phanloai.idphim }</td>
+							<td>${phanloai.loaiphim }</td>
+							<td>${phanloai.theloai }</td>
+							<td>${phanloai.quocgia }</td>
+							<td>${phanloai.nam }</td>
+							
 							<td><a class="btn btn-primary"
-								href="phim?action=2&idphim=${chiTietPhim.idphim }">Chỉnh sửa</a></td>
+								href="phim/edit/phanloai/${phanloai.idphim }">Chỉnh sửa</a></td>
 						</tr>
 					</c:if>
 

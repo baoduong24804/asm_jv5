@@ -72,7 +72,8 @@
                                 </div> -->
 
 								<button type="submit" name="btn-chinh-sua-chi-tiet-phim" value="true"
-									class="btn btn-primary">Lưu</button>
+									class="btn btn-success">Chỉnh sửa</button>
+						
 							</f:form>
 							<form></form>
 						</div>

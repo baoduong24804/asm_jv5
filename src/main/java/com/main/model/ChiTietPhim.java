@@ -2,6 +2,7 @@ package com.main.model;
 
 import java.util.Date;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -29,9 +30,8 @@ public class ChiTietPhim {
     @JoinColumn(name = "idphim")
     private Phim phim;
 	
-	@ManyToOne
-	@JoinColumn(name = "idphanloai")
-	private PhanLoai phanLoai;
+	@OneToOne(mappedBy = "chiTietPhim", cascade = CascadeType.ALL, orphanRemoval = true)
+    private PhanLoai phanLoai;
 	
 	@ManyToOne
 	@JoinColumn(name = "idnhasxvadv")
