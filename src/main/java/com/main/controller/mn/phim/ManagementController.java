@@ -19,12 +19,14 @@ public class ManagementController {
 	
 	@GetMapping("")
 	public String getMethodName(Model model) {
-		// model
-		//loadModel(model);
 		modelLoader.loadModel(model);
 		//
 		modelLoader.loadListPhim(model);// tai danh sach phim
-		//
+		modelLoader.phimModel(model); // Entity Phim tuong tac voi form
+		modelLoader.chiTietPhimModel(model);// Entity ChiTietPhim tuong tac voi form
+		modelLoader.tapPhimModel(model);// List + Entity TapPhim tuong tac voi form
+		modelLoader.nhaSanXuatModel(model);// List + Entity TapPhim tuong tac voi form
+		modelLoader.phanLoaiModel(model);// List + Entity TapPhim tuong tac voi form
 
 		model.addAttribute("action", 0);
 
