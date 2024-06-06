@@ -10,12 +10,14 @@
 							data-toggle="tab" href="#phim-list" role="tab">Danh sách</a></li>
 					</ul>
 					<div class="tab-content">
-
+						
 						<div class="tab-pane fade show active" id="phim-edition"
 							role="tabpanel">
 							<h2 class="mt-3">
 								Chỉnh sửa Phim 
 							</h2>
+							<span class="text-success">${mesSuccessPhim }</span>
+							<span class="text-danger">${mesErrorPhim }</span>
 							<h5 class="text-primary">${mes }</h5>
 							<f:form action="phim/edit" modelAttribute="phim" method="post">
 								<div class="form-group">

@@ -29,9 +29,7 @@
 			<nav id="nav" class="col-md-2 d-none d-md-block bg-dark sidebar ">
 
 				<div class="text-center m-2">
-					<img style="max-height: 50px; max-width: 50px"
-						src="https://www.pngmart.com/files/22/User-Avatar-Profile-Background-Isolated-PNG.png"
-						alt="User Avatar" class="rounded-circle">
+					
 					<p class="text-white text-truncate">Ty Bao</p>
 					<hr class="white-hr">
 

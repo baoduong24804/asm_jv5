@@ -30,7 +30,7 @@
 		<li onclick="changeURL('control/nhasx',4)"
 			class="nav-item menu-item ${not empty action && action == 4 ? 'bg-primary' : '' }"><a
 			class="nav-link text-white"><i class="fas fa-industry"></i> Nhà
-				sản xuất</a></li>
+				sản xuất, tác giả</a></li>
 		<li onclick="changeURL('control/phanloai',5)"
 			class="nav-item menu-item ${not empty action && action == 5 ? 'bg-primary' : '' }"><a
 			class="nav-link text-white"><i class="fas fa-tags"></i> Phân loại</a></li>

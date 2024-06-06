@@ -16,6 +16,7 @@
 							<h2 class="mt-3">
 								Chỉnh sửa Chi tiết phim 
 							</h2>
+							<span class="text-success">${mesSuccessChiTietPhim }</span>
 							<f:form action="phim/edit/chitietphim" modelAttribute="chitietphim" method="post">
 								<div class="form-group">
 									<label for="chitietphim-idphim">ID phim:</label>

@@ -21,6 +21,8 @@ import com.main.service.ModelLoader;
 @Controller
 @RequestMapping("animu/control")
 public class NhasxController {
+	private String mesSuccessNhasx = null;
+	
 	@Autowired
 	ModelLoader modelLoader;
 	
@@ -43,7 +45,9 @@ public class NhasxController {
 		modelLoader.tapPhimModel(model);
 		modelLoader.nhaSanXuatModel(model);
 		modelLoader.phanLoaiModel(model);
-		
+		if(mesSuccessNhasx != null) {
+			model.addAttribute("mesSuccessNhasx", mesSuccessNhasx);
+		}
 		model.addAttribute("action", 4);
 		return "/views/phim/control";
 	}
@@ -60,6 +64,8 @@ public class NhasxController {
 		// modelLoader.loadListPhim(model);// tai danh sach phim
 
 		// model.addAttribute("action", 1);
+		
+		mesSuccessNhasx = null;
 
 		return "redirect:/animu/control/nhasx";
 	}
@@ -75,6 +81,7 @@ public class NhasxController {
 				NhaXSVaDienVien nhasanxuat = nhaXSVaDienVienRepository.findByIdPhimAndIdNhasx(PhimController.idPhim, PhimController.idNhasx);
 				nhasanxuat.setTen(ten);
 				nhaXSVaDienVienRepository.save(nhasanxuat);
+				mesSuccessNhasx = "Sửa thành công nhà sản xuất, tác giả";
 			}
 			
 		}

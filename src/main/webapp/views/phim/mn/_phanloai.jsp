@@ -14,6 +14,7 @@
 		<div class="tab-pane fade show active" id="phanloai-edition"
 			role="tabpanel">
 			<h2 class="mt-3">Chỉnh sửa Phân loại</h2>
+			<span class="text-success">${mesSuccessPhanLoai }</span>
 			<f:form action="phim/edit/phanloai" modelAttribute="phanLoai" method="post">
 				<div class="form-group">
 					<label for="">ID phim:</label>

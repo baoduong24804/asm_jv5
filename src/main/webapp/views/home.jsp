@@ -8,5 +8,8 @@
 </head>
 <body>
 	<h1>Hello world</h1>
+	<a style="text-decoration: none;" href="/animu/home">Trang xem phim</a>
+	<br>
+		<a style="text-decoration: none;" href="/animu/control">Trang quản lý</a>
 </body>
 </html>

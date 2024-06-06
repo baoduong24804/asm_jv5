@@ -16,6 +16,8 @@ import com.main.service.ModelLoader;
 @Controller
 @RequestMapping("animu/control")
 public class PhanLoaiController {
+	private String mesSuccessPhanLoai = null;
+	
 	@Autowired
 	ModelLoader modelLoader;
 	
@@ -33,6 +35,10 @@ public class PhanLoaiController {
 		modelLoader.nhaSanXuatModel(model);
 		modelLoader.phanLoaiModel(model);
 		//
+		if(mesSuccessPhanLoai != null) {
+			model.addAttribute("mesSuccessPhanLoai", mesSuccessPhanLoai);
+		}
+		
 		model.addAttribute("action", 5);
 		return "/views/phim/control";
 	}
@@ -48,6 +54,7 @@ public class PhanLoaiController {
 		// modelLoader.loadListPhim(model);// tai danh sach phim
 
 		// model.addAttribute("action", 1);
+		mesSuccessPhanLoai = null;
 
 		return "redirect:/animu/control/phanloai";
 	}
@@ -64,6 +71,8 @@ public class PhanLoaiController {
 				pl.setQuocgia(phanLoai.getQuocgia());
 				pl.setTheloai(phanLoai.getTheloai());
 				phanLoaiRepository.save(pl);
+				
+				mesSuccessPhanLoai = "Sửa phân loại thành công";
 			}
 			
 		}

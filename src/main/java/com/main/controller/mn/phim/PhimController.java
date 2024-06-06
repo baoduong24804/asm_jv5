@@ -29,6 +29,8 @@ public class PhimController {
 	public static Integer idTapphim = null;
 	public static Integer idPhim = null;
 	public static Integer idNhasx = null;
+	private String mesSuccessPhim = null;
+	private String mesErrorPhim = null;
 
 	@Autowired
 	ModelLoader modelLoader;
@@ -60,6 +62,12 @@ public class PhimController {
 		modelLoader.nhaSanXuatModel(model);// List + Entity TapPhim tuong tac voi form
 		modelLoader.phanLoaiModel(model);// List + Entity TapPhim tuong tac voi form
 		//
+		if(mesSuccessPhim != null) {
+			model.addAttribute("mesSuccessPhim", mesSuccessPhim);
+		}
+		if(mesErrorPhim != null) {
+			model.addAttribute("mesErrorPhim", mesErrorPhim);
+		}
 
 		model.addAttribute("action", 1);
 		return "/views/phim/control";
@@ -70,6 +78,8 @@ public class PhimController {
 		PhimController.idPhim = null;
 		PhimController.idTapphim = null;
 		PhimController.idNhasx = null;
+		mesSuccessPhim = null;
+		mesErrorPhim = null;
 		return "redirect:/animu/control/phim";
 	}
 
@@ -84,6 +94,8 @@ public class PhimController {
 		// modelLoader.loadListPhim(model);// tai danh sach phim
 
 		// model.addAttribute("action", 1);
+		mesSuccessPhim = null;
+		mesErrorPhim = null;
 
 		return "redirect:/animu/control/phim";
 	}
@@ -123,6 +135,8 @@ public class PhimController {
 			pl.setIdphim(phim.getIdphim());
 			phanLoaiRepository.save(pl);
 			
+			mesSuccessPhim = "Thêm thành công Phim mới";
+			
 		}
 		if (btn_sua) {
 			Phim p = phimRepository.findById(phim.getIdphim()).get();
@@ -134,6 +148,8 @@ public class PhimController {
 			p.setTieude(phim.getTieude());
 
 			phimRepository.save(p);
+			
+			mesSuccessPhim = "Sửa Phim thành công";
 		}
 
 		//

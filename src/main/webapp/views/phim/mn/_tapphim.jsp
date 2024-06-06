@@ -15,7 +15,10 @@
 			<h2 class="mt-3">
 				Chỉnh sửa Tập phim <span class="text-primary">
 			</h2>
-			<f:form action="phim/edit/tapphim" modelAttribute="tapphim" method="post">
+			<span class="text-success">${mesSuccessTapPhim }</span>
+			<span class="text-danger">${mesErrorTapPhim }</span>
+			<f:form action="phim/edit/tapphim" modelAttribute="tapphim"
+				method="post">
 				<div class="row">
 					<div class="form-group col-md-6">
 						<label for="tapphim-idtapphim">ID Tập phim:</label>
@@ -61,11 +64,12 @@
 						value="${tapPhim.link2 }" />
 
 				</div>
-				<button type="submit" class="btn btn-primary" name="btn-them-tap-phim"
-					value="true">Thêm</button>
+				<button type="submit" class="btn btn-primary"
+					name="btn-them-tap-phim" value="true">Thêm</button>
 				<button type="submit" class="btn btn-success"
 					name="btn-chinh-sua-tap-phim" value="true">Chỉnh sửa</button>
-					<a href="phim/delete/tapphim/${tapPhim.idtapphim }" class="btn btn-danger">Xóa</a>
+				<a href="phim/delete/tapphim/${tapPhim.idtapphim }"
+					class="btn btn-danger">Xóa</a>
 			</f:form>
 
 		</div>
@@ -97,8 +101,7 @@
 							<td>${item.link }</td>
 							<td>${item.link2 }</td>
 							<td><a class="btn btn-primary"
-								href="phim/edit/tapphim/${item.idtapphim }">Chỉnh
-									sửa</a></td>
+								href="phim/edit/tapphim/${item.idtapphim }">Chỉnh sửa</a></td>
 						</tr>
 					</c:forEach>
 

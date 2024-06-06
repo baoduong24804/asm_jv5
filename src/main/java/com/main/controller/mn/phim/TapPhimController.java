@@ -20,6 +20,9 @@ import com.main.service.ModelLoader;
 @Controller
 @RequestMapping("animu/control")
 public class TapPhimController {
+	private String mesSuccessTapPhim = null;
+	private String mesErrorTapPhim = null;
+	
 	@Autowired
 	ModelLoader modelLoader;
 	
@@ -43,6 +46,12 @@ public class TapPhimController {
 		modelLoader.tapPhimModel(model);
 		modelLoader.phanLoaiModel(model);
 		//
+		if(mesSuccessTapPhim != null) {
+			model.addAttribute("mesSuccessTapPhim", mesSuccessTapPhim);
+		}
+		if(mesErrorTapPhim != null) {
+			model.addAttribute("mesErrorTapPhim", mesErrorTapPhim);
+		}
 		model.addAttribute("action", 3);
 		return "/views/phim/control";
 	}
@@ -67,7 +76,7 @@ public class TapPhimController {
 		TapPhim t = tapPhimRepository.findById(id).get();
 		tapPhimRepository.delete(t);
 		
-		
+		mesSuccessTapPhim = "Xóa tập phim thành công";
 
 		return "redirect:/animu/control/tapphim";
 	}
@@ -83,6 +92,9 @@ public class TapPhimController {
 			tapphim.setPhim(p);
 			tapPhimRepository.save(tapphim);
 			PhimController.idTapphim = null;
+			
+			mesSuccessTapPhim = "Thêm tập phim mới thành công";
+			
 		}
 		if (btn_sua_tapphim) {
 			TapPhim tp = tapPhimRepository.findById(tapphim.getIdtapphim()).get();
@@ -92,6 +104,8 @@ public class TapPhimController {
 			tp.setSlug(tapphim.getSlug());
 			tp.setTentap(tapphim.getTentap());
 			tapPhimRepository.save(tp);
+			
+			mesSuccessTapPhim = "Sửa tập phim thành công";
 		}
 		return "redirect:/animu/control/tapphim";
 	}

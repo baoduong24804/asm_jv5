@@ -20,7 +20,7 @@ import com.main.service.ModelLoader;
 @Controller
 @RequestMapping("animu/control")
 public class ChiTietPhimController {
-	
+	private String mesSuccessChiTietPhim = null;
 	@Autowired
 	ModelLoader modelLoader;
 	
@@ -37,6 +37,9 @@ public class ChiTietPhimController {
 		modelLoader.tapPhimModel(model);
 		modelLoader.phanLoaiModel(model);
 		//
+		if(mesSuccessChiTietPhim != null) {
+			model.addAttribute("mesSuccessChiTietPhim", mesSuccessChiTietPhim);
+		}
 		model.addAttribute("action", 2);
 		return "/views/phim/control";
 	}
@@ -48,6 +51,7 @@ public class ChiTietPhimController {
 		
 
 		// model.addAttribute("action", 1);
+		mesSuccessChiTietPhim = null;
 
 		return "redirect:/animu/control/chitietphim";
 	}
@@ -67,6 +71,7 @@ public class ChiTietPhimController {
 			ct.setTongsotap(chitietphim.getTongsotap());
 
 			chiTietPhimRepository.save(ct);
+			mesSuccessChiTietPhim = "Sửa chi tiết phim thành công";
 
 		}
 		return "redirect:/animu/control/chitietphim";

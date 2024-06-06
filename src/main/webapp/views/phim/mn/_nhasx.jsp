@@ -13,7 +13,8 @@
 	<div class="tab-content">
 		<div class="tab-pane fade show active" id="nhasx-edition"
 			role="tabpanel">
-			<h2 class="mt-3">Chỉnh sửa Nhà sản xuất</h2>
+			<h2 class="mt-3">Chỉnh sửa Nhà sản xuất, Tác giả</h2>
+			<span class="text-success">${mesSuccessNhasx }</span>
 			<f:form action="phim/edit/nhasx" modelAttribute="nhasanxuat" method="post">
 				<div class="form-group">
 					<label for="">ID nhà sản xuất:</label>
