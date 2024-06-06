@@ -23,7 +23,7 @@ public class Email {
         // Tạo đối tượng HtmlEmail
         HtmlEmail email = new HtmlEmail();
         email.setHostName("smtp.gmail.com");
-        email.setSmtpPort(587);
+        email.setSmtpPort(465);
         email.setAuthenticator(new DefaultAuthenticator(username, password));
         email.setStartTLSRequired(true);
      // Cấu hình máy chủ SMTP

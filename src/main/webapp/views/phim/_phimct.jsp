@@ -1,12 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
 	<h1 class="text-white text-center">Phim</h1>
 	<ul class="nav flex-column">
 		<li onclick="changeURL('control',0)"
@@ -35,5 +28,3 @@
 			class="nav-item menu-item ${not empty action && action == 5 ? 'bg-primary' : '' }"><a
 			class="nav-link text-white"><i class="fas fa-tags"></i> Phân loại</a></li>
 	</ul>
-</body>
-</html>

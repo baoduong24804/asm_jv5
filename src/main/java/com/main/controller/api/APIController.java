@@ -1,28 +1,49 @@
 package com.main.controller.api;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.main.model.Phim;
-import com.main.repository.PhimRepository;
+import com.main.model.NguoiDung;
+import com.main.repository.NguoiDungRepository;
 
 @RestController
 public class APIController {
 	@Autowired
-	PhimRepository phimRepository;
+	NguoiDungRepository nguoiDungRepository;
+	
 
-	@GetMapping("/api/phim")
-	public List<Phim> getMethodName() {
-		List<Phim> list = phimRepository.findAll();
-		List<Phim> list2 = new ArrayList<Phim>();
-		for (Phim phim : list) {
-			Phim p = new Phim(phim.getIdphim(), phim.getTieude(), phim.getSlug(), phim.getThumb_url(),
-					phim.getPoster_url(), phim.getNgaytao(), phim.isActive(), null, null, null, null);
-			list2.add(p);
+
+	
+	public static List<NguoiDung> list2 = new ArrayList<NguoiDung>();
+
+
+	@GetMapping("/api/nguoidung/ngaytao/{option}")
+	public List<NguoiDung> getMethodName(@PathVariable(name = "option", required = true) String option) {
+		List<NguoiDung> list;
+		if (option.equals("all")) {
+			list = nguoiDungRepository.findAll();
+		} else {
+			LocalDate oneYearAgo = LocalDate.now().minusYears(1);
+			list = nguoiDungRepository.findUsersCreatedWithinOneYear(oneYearAgo);
+		}
+		
+		list2.removeAll(list2);
+		 
+		for (NguoiDung n : list) {
+			NguoiDung nguoiDung = new NguoiDung();
+			nguoiDung.setEmail(n.getEmail());
+			nguoiDung.setNgaytao(n.getNgaytao());
+			nguoiDung.setUsername(n.getUsername());
+			//LocalDate pastDate = LocalDate.of(nguoiDung.getNgaytao().getYear(), nguoiDung.getNgaytao().getMonth(), nguoiDung.getNgaytao().getDayOfMonth());
+			//System.out.println(Utils.getDateFromTo(pastDate));
+			
+			list2.add(nguoiDung);
 		}
 		return list2;
 	}

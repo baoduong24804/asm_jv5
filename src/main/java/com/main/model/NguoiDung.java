@@ -1,6 +1,6 @@
 package com.main.model;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -23,7 +23,7 @@ public class NguoiDung {
 	private String email;
 	@NotBlank(message = "Vui lòng nhập mật khẩu")
 	private String password;
-	private Date ngaytao;
+	private LocalDate  ngaytao;
 	private boolean active;
 	private boolean role;
 	

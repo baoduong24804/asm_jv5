@@ -11,5 +11,7 @@
 	<a style="text-decoration: none;" href="/animu/home">Trang xem phim</a>
 	<br>
 		<a style="text-decoration: none;" href="/animu/control">Trang quản lý</a>
+		<br>
+		<a style="text-decoration: none;" href="/animu/logout">Đăng xuất</a>
 </body>
 </html>

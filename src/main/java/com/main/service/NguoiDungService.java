@@ -1,6 +1,6 @@
 package com.main.service;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,7 +38,7 @@ public class NguoiDungService {
 		}
 		if (option) {
 			nguoidung.setUser_id(nguoiDungRepository.findMaxId() + 1);
-			nguoidung.setNgaytao(new Date());
+			nguoidung.setNgaytao(LocalDate.now());
 			nguoidung.setActive(true);
 			nguoidung.setRole(false);
 			

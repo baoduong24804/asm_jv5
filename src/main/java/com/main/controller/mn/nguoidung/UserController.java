@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.main.model.NguoiDung;
 import com.main.service.NguoiDungService;
+import com.main.service.SessionService;
 import com.utils.Email;
 import com.utils.UserCurrent;
 import com.utils.Utils;
@@ -23,11 +24,29 @@ public class UserController {
 	@Autowired
 	NguoiDungService nguoiDungService;
 	// @Autowired JwtUtils jwtUtils;
+	
+	@Autowired
+	SessionService sessionService;
 
 	@GetMapping("login")
-	public String login(@ModelAttribute(name = "nguoidung") NguoiDung nguoiDung) {
-		return "/views/login";
+	
+	public String login(Model model,@ModelAttribute(name = "nguoidung") NguoiDung nguoiDung) {
+		
+		model.addAttribute("mes2", sessionService.get("error"));
+		
+		sessionService.set("error", "");
+		
+		
+		return "/views/account/login";
 	}
+	
+	@GetMapping("logout")
+	public String logout() {
+		sessionService.set("user", null);
+		UserCurrent.clearNguoiDung();
+		return "redirect:/";
+	}
+	
 
 	@PostMapping("login")
 	public String postMethodName(@ModelAttribute(name = "nguoidung") NguoiDung nguoiDung,
@@ -35,7 +54,7 @@ public class UserController {
 		// TODO: process POST request
 		if (nguoiDung.getEmail().isEmpty() || nguoiDung.getPassword().isEmpty()) {
 			model.addAttribute("mes2", "Vui lòng nhập đầy đủ thông tin");
-			return "/views/login";
+			return "/views/account/login";
 		}
 
 		NguoiDung nguoiDung2 = nguoiDungService.findByEmailAndPassword(nguoiDung.getEmail(), nguoiDung.getPassword(),
@@ -44,7 +63,7 @@ public class UserController {
 			UserCurrent.setNguoiDung(nguoiDung2);
 		} else {
 			model.addAttribute("mes2", "Đăng nhập thất bại");
-			return "/views/login";
+			return "/views/account/login";
 		}
 
 		if (check) {
@@ -53,7 +72,17 @@ public class UserController {
 
 		}
 		//System.out.println(UserCurrent.getNguoiDung().toString());
+		sessionService.set("user", nguoiDung2);
+		
 		model.addAttribute("mes", "Đăng nhập thành công");
+		
+		String uri = String.valueOf(sessionService.get("security-uri"));
+		//System.out.println(uri);
+		if(!uri.isEmpty() && uri != null && !uri.equals("null")) {
+			sessionService.set("security-uri", "");
+			
+			return "redirect:"+uri;
+		}
 		
 		//return "/views/login";
 		return "redirect:/animu/home";
@@ -62,7 +91,7 @@ public class UserController {
 	@GetMapping("register")
 	public String register(@ModelAttribute(name = "nguoidung") NguoiDung nguoiDung) {
 
-		return "/views/register";
+		return "/views/account/register";
 	}
 
 	@PostMapping("register")
@@ -72,24 +101,24 @@ public class UserController {
 		// TODO: process POST request
 		if (result.hasErrors()) {
 			model.addAttribute("mes2", "Đăng ký thất bại");
-			return "/views/register";
+			return "/views/account/register";
 		}
 		if(!nguoiDung.getPassword().equals(confirmpassword)) {
 			model.addAttribute("err", "Xác nhận mật khẩu không chính xác");
-			return "/views/register";
+			return "/views/account/register";
 		}
 		if(!nguoiDungService.saveUser(nguoiDung, true)) {
 			model.addAttribute("mes2", "Đăng ký thất bại, tài khoản đã có người sử dụng");
-			return "/views/register";
+			return "/views/account/register";
 		};
 		
 		model.addAttribute("mes", "Đăng ký thành công");
-		return "/views/register";
+		return "/views/account/register";
 	}
 
 	@GetMapping("forgotpass")
 	public String forgotpass() {
-		return "/views/forgotpass";
+		return "/views/account/forgotpass";
 	}
 	
 	@PostMapping("forgotpass")
@@ -102,7 +131,7 @@ public class UserController {
 		if(email.isEmpty()) {
 			model.addAttribute("mes2", "Vui lòng nhập Email");
 			
-			return "/views/forgotpass";
+			return "/views/account/forgotpass";
 		}
 		
 		if(btn) {
@@ -124,14 +153,14 @@ public class UserController {
 			
 			model.addAttribute("email", email);
 			model.addAttribute("mes", "Kiểm tra OTP được gửi qua Email");
-			return "/views/forgotpass";
+			return "/views/account/forgotpass";
 		}else {
 			// xac nhận
 			if(OTP.isEmpty()) {
 				model.addAttribute("email", email);
 				model.addAttribute("mes2", "Vui lòng nhập OTP");
 				
-				return "/views/forgotpass";
+				return "/views/account/forgotpass";
 			}
 		}
 		
@@ -165,6 +194,6 @@ public class UserController {
 		}
 		
 		//2024-05-23T15:11:59.814345100
-		return "/views/forgotpass";
+		return "/views/account/forgotpass";
 	}
 }

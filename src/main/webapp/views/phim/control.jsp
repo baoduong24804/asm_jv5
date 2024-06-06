@@ -22,14 +22,14 @@
 <body>
 	<div class="container-fluid">
 
-		<input type="number" id="hiddenInp"
+		<input style="display: none;" type="number" id="hiddenInp"
 			value="${actionEdit != -1 ? actionEdit : -1 }">
 
 		<div class="row">
 			<nav id="nav" class="col-md-2 d-none d-md-block bg-dark sidebar ">
 
 				<div class="text-center m-2">
-					
+
 					<p class="text-white text-truncate">Ty Bao</p>
 					<hr class="white-hr">
 
@@ -39,7 +39,8 @@
 					<%@ include file="_phimct.jsp"%>
 					<hr class="white-hr">
 					<%@ include file="_userct.jsp"%>
-
+					<hr class="white-hr">
+					<%@ include file="_other.jsp"%>
 				</div>
 			</nav>
 			<main id="main" role="main"
@@ -73,6 +74,22 @@
 						<%@ include file="./mn/_phanloai.jsp"%>
 					</div>
 
+					<div id="nguoidungview">
+						<%@ include file="./mn/_nguoidung.jsp"%>
+					</div>
+
+					<div id="chitietnguoidungview">
+						<%@ include file="./mn/_chitietnguoidung.jsp"%>
+					</div>
+
+					<div id="yeuthichview">
+						<%@ include file="./mn/_yeuthich.jsp"%>
+					</div>
+
+					<div id="mailview">
+						<%@ include file="./mn/_mail.jsp"%>
+					</div>
+
 				</div>
 
 
@@ -95,6 +112,11 @@
 		const tapphimview = document.getElementById('tapphimview');
 		const nhasxview = document.getElementById('nhasxview');
 		const phanloaiview = document.getElementById('phanloaiview');
+		const mailview = document.getElementById('mailview');
+		const nguoidungview = document.getElementById('nguoidungview');
+		const chitietnguoidungview = document
+				.getElementById('chitietnguoidungview');
+		const yeuthichview = document.getElementById('yeuthichview');
 		//
 
 		//
@@ -114,67 +136,38 @@
 
 		window.addEventListener('load', function() {
 			//load();
-			reload();
+			changeURL(null, null, false);
 
 		});
 
-		function reload() {
+		function changeURL(value, index, option) {
+			if (option == false) {
 
-			phimview.style.display = 'none';
-			charview.style.display = 'none';
-			chitietphimview.style.display = 'none';
-			tapphimview.style.display = 'none';
-			nhasxview.style.display = 'none';
-			phanloaiview.style.display = 'none';
+			} else {
+				history.pushState({}, '', '/animu/' + value);
 
-			var currentUrl = window.location.href;
-			if (currentUrl.endsWith('/control')) {
-				charview.style.display = 'block';
-				//menu[0].classList.add('bg-primary');
-			}
-			if (currentUrl.endsWith('/phim')) {
-				phimview.style.display = 'block';
-				//menu[1].classList.add('bg-primary');
-			}
-			if (currentUrl.endsWith('/chitietphim')) {
-				chitietphimview.style.display = 'block';
-				//menu[2].classList.add('bg-primary');
-			}
-			if (currentUrl.endsWith('/tapphim')) {
-				tapphimview.style.display = 'block';
-				//menu[3].classList.add('bg-primary');
-			}
-			if (currentUrl.endsWith('/nhasx')) {
-				nhasxview.style.display = 'block';
-				//menu[4].classList.add('bg-primary');
-			}
-			if (currentUrl.endsWith('/phanloai')) {
-				phanloaiview.style.display = 'block';
-				//menu[5].classList.add('bg-primary');
-			}
-
-		}
-
-		function changeURL(value, index) {
-			history.pushState({}, '', '/animu/' + value);
-
-			const currentUrl = window.location.href;
-
-			// Duyệt qua từng phần tử trong HTMLCollection
-			for (var i = 0; i < navs.length; i++) {
-				if (i == index) {
-					navs[i].classList.add('bg-primary');
-				} else {
-					navs[i].classList.remove('bg-primary');
+				// Duyệt qua từng phần tử trong HTMLCollection
+				for (var i = 0; i < navs.length; i++) {
+					if (i == index) {
+						navs[i].classList.add('bg-primary');
+					} else {
+						navs[i].classList.remove('bg-primary');
+					}
 				}
 			}
 
+			const currentUrl = window.location.href;
+
 			phimview.style.display = 'none';
 			charview.style.display = 'none';
 			chitietphimview.style.display = 'none';
 			tapphimview.style.display = 'none';
 			nhasxview.style.display = 'none';
 			phanloaiview.style.display = 'none';
+			mailview.style.display = 'none';
+			nguoidungview.style.display = 'none';
+			chitietnguoidungview.style.display = 'none';
+			yeuthichview.style.display = 'none';
 
 			if (currentUrl.endsWith('/phim')) {
 				phimview.style.display = 'block';
@@ -198,6 +191,25 @@
 			if (currentUrl.endsWith('/phanloai')) {
 				phanloaiview.style.display = 'block';
 
+			}
+			if (currentUrl.endsWith('/mail')) {
+				mailview.style.display = 'block';
+				//menu[5].classList.add('bg-primary');
+			}
+
+			if (currentUrl.endsWith('/nguoidung')) {
+				nguoidungview.style.display = 'block';
+				//menu[5].classList.add('bg-primary');
+			}
+
+			if (currentUrl.endsWith('/chitietnguoidung')) {
+				chitietnguoidungview.style.display = 'block';
+				//menu[5].classList.add('bg-primary');
+			}
+
+			if (currentUrl.endsWith('/yeuthich')) {
+				yeuthichview.style.display = 'block';
+				//menu[5].classList.add('bg-primary');
 			}
 
 		}
