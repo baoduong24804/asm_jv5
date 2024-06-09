@@ -4,10 +4,12 @@
         <li class="nav-item"><a class="nav-link" id="phanloai-list-tab" data-toggle="tab" href="#phanloai-list" role="tab">Danh sách</a></li>
     </ul>
     <div class="tab-content">
+    <div class="alert alert-primary mt-2" role="alert" id="phimSelected">
+			Vui lòng chọn phim cần chỉnh sửa</div>
         <div class="tab-pane fade show active" id="phanloai-edition" role="tabpanel">
             <h2 class="mt-3">Chỉnh sửa Phân loại</h2>
-            <span class="text-success"></span>
-            <form action="phim/edit/phanloai" method="post">
+            <span id="mes"></span>
+            <form >
                 <div class="form-group">
                     <label for="idphim">ID phim:</label>
                     <input type="text" id="idphim" name="idphim" class="form-control" value="" />
@@ -30,7 +32,7 @@
                     <label for="nam">Năm:</label>
                     <input type="text" id="nam" name="nam" class="form-control" value="" />
                 </div>
-                <button type="submit" name="btn-sua-phanloai" value="true" class="btn btn-success">Chỉnh sửa</button>
+                <button type="button" id="btn-sua-phanloai" value="true" class="btn btn-success">Chỉnh sửa</button>
             </form>
         </div>
         <div class="tab-pane fade" id="phanloai-list" role="tabpanel">
@@ -46,7 +48,7 @@
                         <th>Khác</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="body-phanloai">
                  
                 </tbody>
             </table>

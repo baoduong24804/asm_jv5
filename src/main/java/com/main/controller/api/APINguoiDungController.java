@@ -74,7 +74,7 @@ public class APINguoiDungController {
 	@GetMapping("/animu/api/update/nguoidung/{id}")
 	public String getMethodName(@PathVariable("id") String id) {
 		try {
-			Thread.sleep(3000);
+		
 			NguoiDung ng = nguoiDungRepository.findById(Integer.parseInt(id)).get();
 			ng.setActive(!ng.isActive());
 			nguoiDungRepository.save(ng);

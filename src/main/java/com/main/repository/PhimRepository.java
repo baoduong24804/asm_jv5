@@ -2,6 +2,8 @@ package com.main.repository;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -42,9 +44,7 @@ public interface PhimRepository extends JpaRepository<Phim, Integer>{
     @Transactional
     @Query("UPDATE TapPhim tp SET tp.server = :server, tp.tentap = :tentap, tp.slug = :slug,tp.link = :link,tp.link2 = :link2 WHERE tp.phim.idphim = :idphim AND tp.idtapphim = :idtapphim")
     void updateTapPhim(@Param("idphim") int idphim, @Param("idtapphim") int idtapphim, @Param("server") String newServer, @Param("tentap") String newTentap,@Param("slug") String slug, @Param("link") String newLink,@Param("link2") String newLink2);
-//	@Query("SELECT c.cart_id FROM Cart c WHERE c.user.user_id = :userId AND c.item.item_id = :itemId")
-//	Integer findCartIDByUserIdAndItemId(@Param("userId") Integer userId, @Param("itemId") Integer itemId);
-//	
-//	@Query("SELECT c.soluong FROM Cart c WHERE c.user.user_id = :userId AND c.item.item_id = :itemId")
-//    Integer findSoluongByUserIdAndItemId(@Param("userId") Integer userId, @Param("itemId") Integer itemId);
+
+	@Query("Select o from Phim o where o.chitietphim.phanLoai.loaiphim =:loaiphim")
+	Page<Phim> findPhimByPhanLoai(@Param("loaiphim") String loaiphim, Pageable pageable);
 }

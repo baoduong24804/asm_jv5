@@ -18,10 +18,11 @@ public class ManagementControllerOkkkkkkkkkkkkkkkkk {
 	@Autowired
 	SessionService service;
 	
+	
 	@GetMapping("")
 	public String getMethodName(Model model) {
 		APIPhimController.editPhim = null;
-
+		
 		return "/views/control";
 	}
 }

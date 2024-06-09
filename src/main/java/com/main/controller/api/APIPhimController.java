@@ -119,11 +119,11 @@ public List<Phim> getMethodName(@RequestParam(name = "key",required = false) Str
 
 
 	@PostMapping("/animu/api/update/phim/{idphim}")
-	public String update(@PathVariable("idphim") int idphim, @RequestBody Phim phim) {
+	public String update(@PathVariable("idphim") String idphim, @RequestBody Phim phim) {
 		Phim p = null;
 		try {
-			Thread.sleep(3000);
-			p = phimRepository.findById(idphim).get();
+		
+			p = phimRepository.findById(Integer.parseInt(idphim)).get();
 			
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -132,10 +132,10 @@ public List<Phim> getMethodName(@RequestParam(name = "key",required = false) Str
 		}
 		
 		p.setActive(phim.isActive());
-		p.setPoster_url(phim.getPoster_url());
-		p.setSlug(phim.getSlug());
-		p.setThumb_url(phim.getThumb_url());
-		p.setTieude(phim.getTieude());
+		p.setPoster_url(phim.getPoster_url().trim());
+		p.setSlug(phim.getSlug().trim());
+		p.setThumb_url(phim.getThumb_url().trim());
+		p.setTieude(phim.getTieude().trim());
 		
 		phimRepository.save(p);
 		
@@ -149,7 +149,7 @@ public List<Phim> getMethodName(@RequestParam(name = "key",required = false) Str
 		Phim p = new Phim();
 	
 		try {
-			Thread.sleep(3000);
+			
 			p.setActive(phim.isActive());
 			p.setPoster_url(phim.getPoster_url());
 			p.setSlug(phim.getSlug());

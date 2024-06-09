@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,8 +12,14 @@
 	rel="stylesheet"
 	integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
 	crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+	integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+	integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+	crossorigin="anonymous"></script>
 </head>
 <style>
 body {
@@ -24,7 +30,7 @@ body {
 	overflow-x: hidden;
 }
 
-.carousel-item{
+.carousel-item {
 	height: 500px;
 }
 
@@ -107,22 +113,20 @@ header {
 					</form>
 				</div>
 				<div class="col-md-4 text-white">
-					
+
 					<div class="link-login mt-3 text-end d-md-block">
-					
-					
-					<a href="/animu/login"
-							class="text-decoration-none text-white mt-5"> <img
-							src="/image/userlogo.jpg" alt="UserImage" width="10%"
-							class="rounded-circle"> <c:if test="${not empty userCurrent }">
-							<span>Welcom, ${userCurrent.username }</span>
-					 			</c:if>
-					 			<c:if test="${ empty userCurrent }">
-					 			<span>Đăng nhập/ Đăng ký</span>
-					 			</c:if>
+						<a href="?lang=en">English</a> <a href="?lang=vi">Tiếng Việt</a> <a
+							href="/animu/login" class="text-decoration-none text-white mt-5">
+							<img src="/image/userlogo.jpg" alt="UserImage" width="10%"
+							class="rounded-circle"> <c:if
+								test="${not empty userCurrent }">
+								<span>Welcom, ${userCurrent.username }</span>
+							</c:if> <c:if test="${ empty userCurrent }">
+								<span>${taikhoan }</span>
+							</c:if>
 						</a>
-					
-						
+
+
 					</div>
 				</div>
 			</header>
@@ -147,7 +151,7 @@ header {
 							<li class="nav-item dropdown"><a
 								class="nav-link me-3 ms-2 text-white fw-bold fs-5" href="#"
 								role="button" data-bs-toggle="dropdown" aria-expanded="false">
-									THỂ LOẠI </a>
+									${theloai } </a>
 								<ul class="dropdown-menu">
 									<li><a class="dropdown-item" href="#">Action</a></li>
 									<li><a class="dropdown-item" href="#">Another action</a></li>
@@ -158,7 +162,7 @@ header {
 							<li class="nav-item dropdown"><a
 								class="nav-link me-3 ms-2 text-white fw-bold fs-5" href="#"
 								role="button" data-bs-toggle="dropdown" aria-expanded="false">
-									PHIM BỘ </a>
+									${phimbo } </a>
 								<ul class="dropdown-menu">
 									<li><a class="dropdown-item" href="#">Action</a></li>
 									<li><a class="dropdown-item" href="#">Another action</a></li>
@@ -169,7 +173,7 @@ header {
 							<li class="nav-item dropdown"><a
 								class="nav-link me-3 ms-2 text-white fw-bold fs-5" href="#"
 								role="button" data-bs-toggle="dropdown" aria-expanded="false">
-									PHIM LẺ </a>
+									${phimle } </a>
 								<ul class="dropdown-menu">
 									<li><a class="dropdown-item" href="#">Action</a></li>
 									<li><a class="dropdown-item" href="#">Another action</a></li>
@@ -180,7 +184,7 @@ header {
 							<li class="nav-item dropdown"><a
 								class="nav-link me-3 ms-2 text-white fw-bold fs-5" href="#"
 								role="button" data-bs-toggle="dropdown" aria-expanded="false">
-									PHIM CHIẾU RẠP </a>
+									${phimchieurap } </a>
 								<ul class="dropdown-menu">
 									<li><a class="dropdown-item" href="#">Action</a></li>
 									<li><a class="dropdown-item" href="#">Another action</a></li>
@@ -191,7 +195,7 @@ header {
 							<li class="nav-item dropdown"><a
 								class="nav-link me-3 ms-2 text-white fw-bold fs-5" href="#"
 								role="button" data-bs-toggle="dropdown" aria-expanded="false">
-									THỊNH HÀNH </a>
+									${thinhhanh } </a>
 								<ul class="dropdown-menu">
 									<li><a class="dropdown-item" href="#">Action</a></li>
 									<li><a class="dropdown-item" href="#">Another action</a></li>
@@ -200,13 +204,7 @@ header {
 											here</a></li>
 								</ul></li>
 						</ul>
-						<div class="link-login mb-3 d-lg-none">
-							<a href="#" class="text-decoration-none text-white mt-5"> <img
-								src="/image/userlogo.jpg" alt="UserImage" width="10%"
-								class="rounded-circle" /> <span> Đăng
-									nhập / Đăng ký</span>
-							</a>
-						</div>
+		
 					</div>
 				</div>
 			</nav>
@@ -229,8 +227,8 @@ header {
 			</div>
 			<div class="carousel-inner">
 				<div class="carousel-item active">
-					<img src="/image/background1.jpg" class="d-block m-auto"
-						alt="..." width="1300px" />
+					<img src="/image/background1.jpg" class="d-block m-auto" alt="..."
+						width="1300px" />
 					<div class="carousel-caption d-none d-md-block">
 						<a href="#">
 							<h1>THE BALANCE OF FATE</h1>
@@ -238,8 +236,8 @@ header {
 					</div>
 				</div>
 				<div class="carousel-item">
-					<img src="/image/theworldend.jpg" class="d-block m-auto"
-						alt="..." width="1300px" />
+					<img src="/image/theworldend.jpg" class="d-block m-auto" alt="..."
+						width="1300px" />
 					<div class="carousel-caption d-none d-md-block">
 						<a href="#">
 							<h1>THE WORLD'S END</h1>
@@ -247,8 +245,8 @@ header {
 					</div>
 				</div>
 				<div class="carousel-item">
-					<img src="/image/background3.jpg" class="d-block m-auto"
-						alt="..." width="1300px" />
+					<img src="/image/background3.jpg" class="d-block m-auto" alt="..."
+						width="1300px" />
 					<div class="carousel-caption d-none d-md-block">
 						<a href="#">
 							<h1>DEATH DAY</h1>
@@ -256,8 +254,8 @@ header {
 					</div>
 				</div>
 				<div class="carousel-item">
-					<img src="/image/background4.jpg" class="d-block m-auto"
-						alt="..." width="1300px" />
+					<img src="/image/background4.jpg" class="d-block m-auto" alt="..."
+						width="1300px" />
 					<div class="carousel-caption d-none d-md-block">
 						<a href="#">
 							<h1>GODZILLA</h1>
@@ -326,48 +324,35 @@ header {
 	</section>
 	 -->
 	<section id="news" class="container mt-4">
-    <h3 class="text-danger fw-bold">TẬP MỚI</h3>
-    <div class="row">
-        <c:forEach items="${movies}" var="movie">
-            <div class="col-6 col-md-3 mb-4 position-relative">
-                <img
-                    src="https://img.freepik.com/free-photo/anime-style-character-space_23-2151134100.jpg"
-                    alt=""
-                    class="img-fluid"
-                />
-                <div
-                    class="title text-white position-absolute bottom-0"
-                    style="
-              background: linear-gradient(
-                to top,
-                rgba(0, 0, 0, 0.7),
-                rgba(0, 0, 0, 0)
-              );
-              width: 306px;
-               height: 60px;
-            "
-                >
-                    <div class="row">
-                        <div class="col-md-7" style="font-size: 15px">
-                            <a href="" class="text-white text-decoration-none">
-                                <span style="font-size: 20px" class="fw-bold ms-1">${movie.tieude}</span>
-                                <br>
-                                <span style="margin-left: 5px">Tổng tập:</span>
-                            </a>
-                        </div>
-                        <div class="col-md-5 text-end">
-                            <br />
-                            <span style="font-size: 15px; margin-right: 5px">Lượt xem:</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </c:forEach>
-    </div>
-</section>
+		<h3 class="text-danger fw-bold">${tapmoi }</h3>
+		<div class="row">
+			<c:forEach items="${movies}" var="movie">
+				<div class="col-6 col-md-3 mb-4 position-relative">
+					<img
+						src="https://img.freepik.com/free-photo/anime-style-character-space_23-2151134100.jpg"
+						alt="" class="img-fluid" />
+					<div class="title text-white position-absolute bottom-0"
+						style="background: linear-gradient(to top, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0)); width: 306px; height: 60px;">
+						<div class="row">
+							<div class="col-md-7" style="font-size: 15px">
+								<a href="" class="text-white text-decoration-none"> <span
+									style="font-size: 20px" class="fw-bold ms-1">${movie.tieude}</span>
+									<br> <span style="margin-left: 5px">Tổng tập:</span>
+								</a>
+							</div>
+							<div class="col-md-5 text-end">
+								<br /> <span style="font-size: 15px; margin-right: 5px">Lượt
+									xem:</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</c:forEach>
+		</div>
+	</section>
 	<!-- BO SUU TAP -->
 	<section id="album" class="container">
-		<h3 class="text-danger fw-bold">BỘ SƯU TẬP</h3>
+		<h3 class="text-danger fw-bold">${bosuutap }</h3>
 		<div class="row d-flex">
 			<div class="col-md-4">
 				<img

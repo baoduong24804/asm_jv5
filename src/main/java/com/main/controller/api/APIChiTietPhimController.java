@@ -22,21 +22,40 @@ public class APIChiTietPhimController {
 	public ChiTietPhim getChiTietPhim() {
 		if(APIPhimController.editPhim != null) {
 			ChiTietPhim ctphim = new ChiTietPhim();
+			ChiTietPhim chitietphim = null;
 			
-			ChiTietPhim chitietphim = chiTietPhimRepository.findById(APIPhimController.editPhim).get();
-			ctphim.setIdphim(chitietphim.getIdphim());
-			ctphim.setTengoc(chitietphim.getTengoc());
-			ctphim.setTongsotap(chitietphim.getTongsotap());
-			ctphim.setTapmoinhat(chitietphim.getTapmoinhat());
-			ctphim.setThoigian(chitietphim.getThoigian());
-			ctphim.setChatluong(chitietphim.getChatluong()); 
-			ctphim.setMota(chitietphim.getMota());
-			ctphim.setNgaychinhsua(chitietphim.getNgaychinhsua());
+			try {
+				chitietphim = chiTietPhimRepository.findById(APIPhimController.editPhim).get();
+			} catch (Exception e) {
+				// TODO: handle exception
+			
+			}
+			
+			if(chitietphim != null) {
+				
+				ctphim.setIdphim(chitietphim.getIdphim());
+				ctphim.setTengoc(chitietphim.getTengoc());
+				ctphim.setTongsotap(chitietphim.getTongsotap());
+				ctphim.setTapmoinhat(chitietphim.getTapmoinhat());
+				ctphim.setThoigian(chitietphim.getThoigian());
+				ctphim.setChatluong(chitietphim.getChatluong()); 
+				ctphim.setMota(chitietphim.getMota());
+				ctphim.setNgaychinhsua(chitietphim.getNgaychinhsua());
+			}else {
+				
+				ChiTietPhim ctphimnew = new ChiTietPhim();
+				ctphimnew.setIdphim(APIPhimController.editPhim);
+				ctphimnew.setNgaychinhsua(new Date());
+				chiTietPhimRepository.save(ctphimnew);
+				ctphim = ctphimnew;
+			}
+			
+			
 			
 			
 			return ctphim;
 		}else {
-			return  new ChiTietPhim();
+			return  null;
 		}
 		
 	}
@@ -57,7 +76,7 @@ public class APIChiTietPhimController {
 		
 	    try {
 	    	if(APIPhimController.editPhim != null) {
-	    		Thread.sleep(3000);
+	    	
 		        ChiTietPhim ct = chiTietPhimRepository.findById(APIPhimController.editPhim).get();
 		        
 		        if (ct == null) {
