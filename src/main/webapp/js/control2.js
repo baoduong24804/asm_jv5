@@ -10,8 +10,11 @@ function loading() {
 
 }
 
+
 function loaded(result) {
 	$('#mes').removeClass();
+	$('#mes').html('');
+	$('#mes').empty();
 	var mes = result.split(',');
 	if (mes[0] == 0) {// thong bao loi
 
@@ -22,6 +25,19 @@ function loaded(result) {
 		$('#mes').text(mes[1]);
 		$('#mes').addClass('text-success');
 	}
+}
+
+function postwithfile(url,data, callback) {
+	$.ajax({
+		url: url,
+		type: 'POST',
+		data: data,
+		processData: false, // Important
+		contentType: false, // Important
+		success: function(result) {
+			callback(result);
+		}
+	});
 }
 
 function getAPI(url, callback) {
@@ -252,7 +268,7 @@ function loadPhimForm() {
 
 function phantrangnguoidung(result) {
 	var movies = result;
-	
+
 	var currentPage = 1;
 	var moviesPerPage = 10; // Số phim mỗi trang
 
@@ -412,7 +428,7 @@ function phantrangnguoidung(result) {
 
 ///phan trang chi tiet nguoi dung 
 function phantrangchitietnguoidung(result) {
-	
+
 	var movies = Object.values(result);
 
 
@@ -429,7 +445,7 @@ function phantrangchitietnguoidung(result) {
 		movieList.empty();
 
 		$.each(paginatedMovies, function(index, movie) {
-			console.log(movie);
+
 
 			var listItem = $('<tr class="text-center">');
 			listItem.append('<td>' + movie.idchitiet + '</td>');
@@ -442,9 +458,9 @@ function phantrangchitietnguoidung(result) {
 			listItem.append('<td>' + movie.cmt + '</td>');
 			listItem.append('<td>' + movie.vote + ' <i class="fas fa-star" style="color: #ffd700;"></i></td>');
 			var like = '';
-			if(movie.like){
+			if (movie.like) {
 				like = 'Đã thích';
-			}else{
+			} else {
 				like = 'Chưa thích';
 			}
 			listItem.append('<td>' + like + '</td>');
@@ -465,6 +481,8 @@ function phantrangchitietnguoidung(result) {
 			updatenguoidung(idnguoidung);
 			loadnguoidunglist();
 		});
+
+		addbtndelete();
 
 	}
 
@@ -803,6 +821,8 @@ $(document).ready(function() {
 					//	addbtneditphim();
 					addClickForPhim();
 					loadPhimForm();
+					clickXuatExcel();
+					clickImportExcel();
 				});
 			}
 			// chi tiet phim
@@ -824,9 +844,15 @@ $(document).ready(function() {
 				});
 				loadvaitro();
 			}
-			if(option == 8){// ct nguoi dung
+			if (option == 8) {// ct nguoi dung
 				loadChiTietNguoiDung();
 				addClickSearchCTNguoiDung();
+
+			}
+
+			if (option == 10) {
+				clearMail();
+				addClickMail();
 			}
 
 
@@ -994,7 +1020,7 @@ function loadvaitro() {
 		$('#roleSelect').append('<option value="-1">Tất cả</option>');
 		$.each(result, function(index, item) {
 			// index = key;
-			$('#roleSelect').append('<option value='+index+'>'+item+'</option>');
+			$('#roleSelect').append('<option value=' + index + '>' + item + '</option>');
 		});
 
 	});
@@ -1006,7 +1032,7 @@ function searchNguoiDung() {
 		key: $('#searchInput').val(),
 		option: $('#roleSelect').val()
 	}
-	
+
 
 	PostAPINotJson('/animu/api/search/nguoidung', data, function(result) {
 		phantrangnguoidung(result);
@@ -1035,31 +1061,188 @@ function updatenguoidung(idnguoidung) {
 }
 
 //////////////////// chi tiet nguoi dung //////////////////////////////
-function loadChiTietNguoiDung(){
-	
+function loadChiTietNguoiDung() {
+
 	getAPI('/animu/api/load/chitietnguoidung', function(result) {
 
 		phantrangchitietnguoidung(result);
 	});
 }
 
-function addClickSearchCTNguoiDung(){
-	$('#searchct').off('click').click(function(){
+function addbtndelete() {
+
+	$('.btn-delete-chitietnguoidung').off('click').click(function() {
+		var idctnguoidung = $(this).val();
+		getAPI('/animu/api/delete/all/' + idctnguoidung, function(result) {
+
+			loadChiTietNguoiDung();
+			loaded(result);
+		});
+	});
+
+	$('.btn-delete-chitietnguoidung-cmt').off('click').click(function() {
+		var idctnguoidung = $(this).val();
+
+		getAPI('/animu/api/delete/cmt/' + idctnguoidung, function(result) {
+
+			loadChiTietNguoiDung();
+			loaded(result);
+		});
+
+	});
+}
+
+function addClickSearchCTNguoiDung() {
+	$('#searchct').off('click').click(function() {
 		searchChiTietNguoiDung();
 	});
 }
 
-function searchChiTietNguoiDung(){
-	
+function searchChiTietNguoiDung() {
+
 	var data = {
 		key: $('#searchInputDetail').val()
 	}
-	
+
 
 	PostAPINotJson('/animu/api/search/chitietnguoidung', data, function(result) {
 		phantrangchitietnguoidung(result);
 	});
 
 }
+/////////////////////// gui mail /////////////////////
+function addClickMail() {
+
+	// gui
+	$('#btn-send').off('click').click(function() {
+		loading();
+		var formData = new FormData();
+		// Add files to the form data
+                var files = $('#file')[0].files;
+                if (files.length === 0) {
+                    // Append an empty file if no files are selected
+                    formData.append('file', new Blob(), '');
+                } else {
+                    for (var i = 0; i < files.length; i++) {
+                        formData.append('file', files[i]);
+                    }
+                }
+
+		// Add other form data
+		formData.append('from', $('#from').val());
+		formData.append('subject', $('#subject').val());
+		formData.append('text', $('#body').val());
+		formData.append('options', $('#options').val());
+		
+		
+		
+		postwithfile('/animu/control/guimail',formData,function(result){
+			loaded(result);
+		});
+
+	});
+
+	/// them vao ds gui
+	$('#btn-load').off('click').click(function() {
+		var type = $('#selectOption').val();
+		getAPI('/animu/api/add/listmail/' + type, function(result) {
+			loadlistEmail(result);
+		});
+	});
+
+}
+
+function clearMail(){
+	getAPI('/animu/api/clear/listmail',function(){
+		
+	});
+}
+
+function loadlistEmail(result) {
+	var movieList = $('#body-email');
+	movieList.empty();
+	$.each(result, function(index, movie) {
+		var date = new Date(movie.ngaytao);
+
+
+		// Lấy thời gian theo múi giờ Việt Nam (GMT+7)
+		var vietnamOffset = 7 * 60; // GMT+7 trong phút
+		var localOffset = date.getTimezoneOffset(); // Phút lệch so với GMT của giờ địa phương
+		var vietnamTime = new Date(date.getTime() + (vietnamOffset + localOffset) * 60 * 1000);
+
+		// Lấy các thành phần ngày giờ theo múi giờ Việt Nam
+		var hours = vietnamTime.getHours().toString().padStart(2, '0');
+		var minutes = vietnamTime.getMinutes().toString().padStart(2, '0');
+		var seconds = vietnamTime.getSeconds().toString().padStart(2, '0');
+		var day = vietnamTime.getDate().toString().padStart(2, '0');
+		var month = (vietnamTime.getMonth() + 1).toString().padStart(2, '0'); // Tháng bắt đầu từ 0
+		var year = vietnamTime.getFullYear();
+
+
+		var ngay = `Ngày${day} Tháng ${month} Năm ${year}`;
+		var thoigian = `${hours}Giờ ${minutes}Phút ${seconds}Giây`;
+		//console.log(formattedDatetime);
+		var listItem = $('<tr class="movie-item text-center">');
+		listItem.append('<td>' + index + '</td>');
+		listItem.append('<td>' + movie.user_id + '</td>');
+		listItem.append('<td>' + movie.email + '</td>');
+		listItem.append('<td>' + movie.username + '</td>');
+		var role = '';
+		if (role == 0) {
+			role = 'Member';
+		} else {
+			role = 'Member Vip';
+		}
+		listItem.append('<td>' + role + '</td>');
+		listItem.append('<td>' + ngay + '</td>');
+
+
+
+
+		listItem.append('</tr>');
+		movieList.append(listItem);
+	});
+
+}
+
+//////////////////////Xuat Excel/////////////////////////////
+
+
+function clickXuatExcel(){
+	
+	$('#btn_xuat_excel').off('click').click(function(){
+		loading();
+		window.location.href = "/animu/api/export/Excel";
+		loaded('1, Xuất file thành công');
+	});
+}
+
+//////////////////////////////////////////////////////////////
+
+
+//////////////////Import Excel//////////////////////////////
+function clickImportExcel(){
+	$('#btn_import_excel').off('click').click(function(){
+		var fileinput = document.getElementById("file-input");
+		var file = fileinput.files[0];
+		var form = new FormData();
+		form.append('file', file);
+		 $.ajax({
+        url: '/animu/api/import/Excel',
+        type: 'POST',
+        data: form,
+        processData: false,  // không xử lý dữ liệu trước khi gửi
+        contentType: false,  // không đặt Content-Type
+        success: function(response) {
+            console.log('File uploaded successfully:', response);
+        },
+        error: function(xhr, status, error) {
+            console.error('Error uploading file:', error);
+        }
+    });
+		
+	});
+}
+
 
 /////////////////////         ////////////////////////////////

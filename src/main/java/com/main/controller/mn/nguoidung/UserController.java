@@ -11,10 +11,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.main.model.MailInfo;
 import com.main.model.NguoiDung;
+import com.main.service.MailerServiceImpl;
 import com.main.service.NguoiDungService;
 import com.main.service.SessionService;
-import com.utils.Email;
+import com.utils.AutoCreate;
 import com.utils.UserCurrent;
 import com.utils.Utils;
 
@@ -24,6 +26,9 @@ public class UserController {
 	@Autowired
 	NguoiDungService nguoiDungService;
 	// @Autowired JwtUtils jwtUtils;
+	
+	@Autowired
+	MailerServiceImpl mailerServiceImpl;
 	
 	@Autowired
 	SessionService sessionService;
@@ -147,7 +152,21 @@ public class UserController {
 //			}
 			NguoiDung ng = nguoiDungService.findUserByEmail(email);
 			if(ng != null) {
-				Utils.setOTP(Integer.valueOf(Email.sendMail(email,true,0)));
+				try {
+					Integer otp = AutoCreate.generateRandomNumber2(6);
+					String body = "Đây là mã OTP để khôi phục tài khoản của bạn: "+otp;
+					MailInfo mailInfo = new MailInfo();
+					mailInfo.setBody(body);
+					mailInfo.setSubject("OTP");
+					mailInfo.setFrom("Animu with love <animu@gmail.com>");
+					mailInfo.setTo(email);
+					mailerServiceImpl.send(mailInfo);
+					Utils.setOTP(otp);
+				} catch (Exception e) {
+					// TODO: handle exception
+					e.printStackTrace();
+				}
+
 			}
 			
 			
@@ -174,13 +193,27 @@ public class UserController {
 		if(Utils.getOTP() != 0 && otp == Utils.getOTP()) {
 				NguoiDung ng = nguoiDungService.findUserByEmail(email);
 				if(ng != null) {
-					
-				model.addAttribute("email", email);
-				String pass = Email.sendMail(email, false, 5);
-				ng.setPassword(pass);
-				nguoiDungService.saveUser(ng, false);
-				model.addAttribute("mes", "Mật khẩu mới đã được gửi vào Email của bạn");
-				Utils.setOTP(0);
+					try {
+						model.addAttribute("email", email);
+						String newpass = AutoCreate.generateRandomString(12);
+						String body = "Đây là mật khẩu mới cho tài khoản của bạn: "+newpass;
+						MailInfo mailInfo = new MailInfo();
+						mailInfo.setBody(body);
+						mailInfo.setSubject("Reset Password");
+						mailInfo.setFrom("Animu with love <animu@gmail.com>");
+						mailInfo.setTo(email);
+						mailerServiceImpl.send(mailInfo);
+						
+						
+						ng.setPassword(newpass);
+						nguoiDungService.saveUser(ng, false);
+						model.addAttribute("mes", "Mật khẩu mới đã được gửi vào Email của bạn");
+						Utils.setOTP(0);
+					} catch (Exception e) {
+						// TODO: handle exception
+						e.printStackTrace();
+					}
+				
 				}else {
 					model.addAttribute("email", email);
 				}

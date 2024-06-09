@@ -1,14 +1,14 @@
    <h1>Gửi Mail</h1>
-
+	<span id="mes"></span>
         <!-- Form Section -->
         <div class="form-group">
             <label for="selectOption">Chọn khoảng thời gian</label>
             <select class="form-control" id="selectOption">
-                <option value="all">Tất cả</option>
-                <option value="year">Trên 1 năm</option>
+                <option value=0>Tất cả</option>
+                <option value=1>Trên 1 năm</option>
             </select>
         </div>
-        <form enctype="multipart/form-data" action="/animu/control/guimail" method="post">
+        <form id="sendMailForm" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="from">From</label>
                 <input type="text" class="form-control" id="from" name="from" value="Animu with love <animu@gmail.com>" readonly>
@@ -19,37 +19,38 @@
             </div>
             <div class="form-group">
                 <label>Nội dung tin nhắn</label>
-                <textarea class="form-control" name="text" rows="5" style="width: 100%"></textarea>
+                <textarea id="body" class="form-control" name="text" rows="5" style="width: 100%"></textarea>
             </div>
             <div class="form-group">
                 <label>Tệp đính kèm</label>
-                <input class="form-control" name="file" type="file" multiple>
+                <input class="form-control" id="file" name="file" type="file" multiple>
             </div>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="options" id="option1" value="true" checked="checked">
-                <label class="form-check-label" for="option1">CC</label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="options" id="option2" value="false">
-                <label class="form-check-label" for="option2">BCC</label>
+            <div class="form-group">
+                <label for="cc_bcc">Select CC or BCC</label>
+                <select name="cc_bcc" id="options" class="form-control">
+                    <option value=true>CC</option>
+                    <option value=false>BCC</option>
+                </select>
             </div>
             <span class="text-info" id="mes"></span>
             <br>
-            <button type="submit" class="btn btn-primary" id="btn-send">Gửi Mail</button>
+            <button type="button" class="btn btn-primary" id="btn-send">Gửi Mail</button>
             <button type="button" class="btn btn-info" id="btn-load">Thêm và hiển thị lên bảng</button>
         </form>
 
         <!-- Table Section -->
         <table class="table table-striped mt-4">
             <thead>
-                <tr>
+                <tr class="text-center">
                     <th scope="col">STT</th>
+                    <th scope="col">User Id</th>
                     <th scope="col">Email</th>
                     <th scope="col">Username</th>
-                    <th scope="col">Trạng Thái</th>
+                    <th scope="col">Vai trò</th>
+                    <th scope="col">Ngày tạo</th>
                 </tr>
             </thead>
-            <tbody >
+            <tbody id="body-email">
               
             </tbody>
         </table>

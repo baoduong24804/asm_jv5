@@ -63,9 +63,9 @@ public class APIChiTietNguoiDungController {
 		if(chiTietNguoiDung != null){
 			chiTietNguoiDung.setCmt("");
 			chiTietNguoiDungRepository.save(chiTietNguoiDung);
-			return "1, Xóa thành công bình luận chi tiết phim ["+id+"]";
+			return "1, Xóa thành công bình luận chi tiết người dùng ["+id+"]";
 		}else {
-			return "0, Xóa thất bại bình luận chi tiết phim ["+id+"]";
+			return "0, Xóa thất bại bình luận chi tiết người dùng ["+id+"]";
 		}
 		
 			
