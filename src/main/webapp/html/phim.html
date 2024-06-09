@@ -1,0 +1,89 @@
+
+<div id="phim-form" class="form-section active">
+	<ul class="nav nav-tabs" id="phimTab" role="tablist">
+		<li class="nav-item"><a class="nav-link active"
+			id="phim-edition-tab" data-toggle="tab" href="#phim-edition"
+			role="tab">Chỉnh sửa</a></li>
+		<li class="nav-item"><a class="nav-link" id="phim-list-tab"
+			data-toggle="tab" href="#phim-list" role="tab">Danh sách</a></li>
+	</ul>
+	<div class="tab-content">
+		<div class="alert alert-primary mt-2" role="alert" id="phimSelected">
+			Vui lòng chọn phim cần chỉnh sửa</div>
+		<div class="tab-pane fade show active" id="phim-edition"
+			role="tabpanel">
+			<h2 class="mt-3">Chỉnh sửa Phim</h2>
+			<span id="mes"></span>
+			<form>
+				<div class="form-group">
+					<label for="idphim">ID phim:</label> <input type="number"
+						class="form-control" id="idphim" name="idphim">
+				</div>
+				<div class="form-group">
+					<label for="phim-tieude">Tiêu đề:</label> <input type="text"
+						class="form-control" id="tieude" name="tieude">
+				</div>
+				<div class="form-group">
+					<label for="phim-slug">Slug:</label> <input type="text"
+						class="form-control" id="slug" name="slug">
+				</div>
+				<div class="form-group">
+					<label for="phim-thumb_url">Thumb URL:</label> <input type="text"
+						class="form-control" id="thumb_url" name="thumb_url">
+				</div>
+				<div class="form-group">
+					<label for="phim-poster_url">Poster URL:</label> <input type="text"
+						class="form-control" id="poster_url" name="poster_url">
+				</div>
+				<div class="form-group form-check">
+					<input type="checkbox" class="form-check-input" id="phim-active"
+						name="active"> <label class="form-check-label"
+						for="phim-active">Active</label>
+				</div>
+				<button type="button" class="btn btn-primary" id="btn_insert_phim">Thêm</button>
+				<button type="button" id="btn_update_phim" class="btn btn-success">Chỉnh
+					sửa</button>
+				<button type="button" class="btn btn-warning" id="btn_clear">Làm
+					mới</button>
+			</form>
+
+		</div>
+		<div class="tab-pane fade" id="phim-list" role="tabpanel">
+			<h2 class="mt-3">Danh sách Phim</h2>
+<div class="row">
+        <div class="form-group col-md-12">
+       	
+            <div class="input-group">
+                <input type="text" class="form-control" id="searchInput" placeholder="Nhập vào tiêu đề phim...">
+                <div class="input-group-append">
+                    <button id="btn_timkiem_phim" type="button" class="btn btn-primary">Tìm kiếm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th>ID phim</th>
+						<th>Tiêu đề</th>
+						<th>Slug</th>
+						<th>Ngày tạo</th>
+						<th>Thumb URL</th>
+
+						<th>Poster URL</th>
+						<th>Active</th>
+						<th>Khác</th>
+					</tr>
+				</thead>
+				<tbody id="table-body">
+					<!-- Dữ liệu thêm cho chơi -->
+					
+
+				</tbody>
+			</table>
+			 <div id="pagination" class="text-center"></div>
+		</div>
+	</div>
+</div>

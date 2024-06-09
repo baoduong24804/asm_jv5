@@ -1,0 +1,49 @@
+<div id="chitietnguoidung-form" class="form-section active">
+	<ul class="nav nav-tabs" id="chitietnguoidungTab" role="tablist">
+		<li class="nav-item"><a class="nav-link active"
+			id="chitietnguoidung-list-tab" data-toggle="tab"
+			href="#chitietnguoidung-list" role="tab">Danh sách Chi Tiết Người
+				Dùng</a></li>
+	</ul>
+	<div class="tab-content">
+		<div class="tab-pane fade show active" id="chitietnguoidung-list"
+			role="tabpanel">
+			<h2 class="mt-3">Danh sách Chi Tiết Người Dùng</h2>
+			<div class="row">
+				<div class="form-group col-md-6">
+					<div class="input-group">
+						<input type="text" class="form-control" id="searchInputDetail"
+							placeholder="Tìm kiếm...">
+						<div class="input-group-append">
+							<button id="searchct" type="button" class="btn btn-primary">Tìm kiếm</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<span id="messageDetail"></span>
+			<table class="table table-bordered">
+				<thead>
+					<tr class="text-center">
+						<th>ID chi tiết người dùng</th>
+						<th>ID người dùng</th>
+						<th>Email</th>
+						<th>Tên người dùng</th>
+						<th>ID phim</th>
+						<th>Tiêu đề</th>
+						<th>Tập phim</th>
+						
+						<th>Bình luận</th>
+						<th>Đánh giá</th>
+						<th>Thích</th>
+						<th>Ngày tạo</th>
+						<th colspan="2">Khác</th>
+					</tr>
+				</thead>
+				<tbody id="body-chitietnguoidung">
+					<!-- Dữ liệu chi tiết người dùng sẽ được thêm vào đây -->
+				</tbody>
+			</table>
+			<div id="pagination" class="text-center"></div>
+		</div>
+	</div>
+</div>

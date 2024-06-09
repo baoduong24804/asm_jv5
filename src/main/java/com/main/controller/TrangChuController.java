@@ -6,12 +6,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.main.model.NguoiDung;
+import com.main.model.People;
 import com.main.model.Phim;
 import com.main.service.PhimService;
 import com.utils.UserCurrent;
+
 
 
 @Controller
@@ -29,6 +34,30 @@ public class TrangChuController {
 		}
 		return "/views/index";
 	}
+	
+//	@ResponseBody
+//	@GetMapping("api/{param}")
+//	public String getMethodName(@PathVariable("param") String x) {
+//		System.out.println(x);
+//		return x;
+//	}
+	
+	
+	
+	@ResponseBody
+	@PostMapping("api/post")
+	public String getMethodName3( @RequestBody  People p) {
+		System.out.println(p.getUsername());
+		System.out.println(p.getPassword());
+		return "";
+	}
+	
+	@GetMapping("test")
+	public String getMethodName() {
+		return "/views/test";
+	}
+	
+	
 	
 	
 }

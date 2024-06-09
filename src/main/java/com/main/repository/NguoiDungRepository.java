@@ -15,10 +15,17 @@ public interface NguoiDungRepository extends JpaRepository<NguoiDung, Integer>{
 	@Query("SELECT Max(i.user_id) as maxId FROM NguoiDung i")
     Integer findMaxId();
 	
-	
+	@Query("SELECT u FROM NguoiDung u WHERE u.role = :role")
+	List<NguoiDung> findALLByRole(@Param("role") Integer role);
 	
 	@Query("SELECT u FROM NguoiDung u WHERE u.username LIKE %:keyword%")
     List<NguoiDung> findUserByKeyword(@Param("keyword") String keyword);
+	
+	@Query("SELECT u FROM NguoiDung u WHERE u.email LIKE %:keyword%")
+	List<NguoiDung> findUserLikeEmail(@Param("keyword") String keyword);
+	
+	@Query("SELECT u FROM NguoiDung u WHERE u.email LIKE %:keyword% and u.role = :role")
+	List<NguoiDung> findUserLikeEmailAndRole(@Param("keyword") String keyword, @Param("role") Integer role);
 	
 	@Query("SELECT u FROM NguoiDung u WHERE u.email = :keyword")
     NguoiDung findUserByEmail(@Param("keyword") String keyword);

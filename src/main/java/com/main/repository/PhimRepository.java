@@ -23,6 +23,9 @@ public interface PhimRepository extends JpaRepository<Phim, Integer>{
 	@Query("SELECT i FROM Phim i where i.active = true")
     List<Phim> findAllPhimActive();
 	
+	@Query("SELECT p FROM Phim p WHERE p.tieude LIKE %:keyword%")
+    List<Phim> findAllPhimLikeTieuDe(@Param("keyword") String keyword);
+	
 	@Query("SELECT u FROM ChiTietPhim u where u.idphim =:idphim")
 	ChiTietPhim findChiTietPhimByID(@Param("idphim") Integer userId);
 

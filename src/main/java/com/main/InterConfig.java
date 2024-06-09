@@ -24,9 +24,9 @@ public class InterConfig implements WebMvcConfigurer {
 	public void addInterceptors(InterceptorRegistry registry) {
 
 		
-		registry.addInterceptor(global).addPathPatterns("/**").excludePathPatterns("");
+		//registry.addInterceptor(global).addPathPatterns("/**").excludePathPatterns("");
 
-		registry.addInterceptor(auth).addPathPatterns("/animu/control").excludePathPatterns("");
+		//registry.addInterceptor(auth).addPathPatterns("/animu/control").excludePathPatterns("");
 
 		//registry.addInterceptor(member).addPathPatterns("/animu/home").excludePathPatterns("");
 	}

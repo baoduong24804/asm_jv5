@@ -24,7 +24,7 @@ public class AuthInterceptor implements HandlerInterceptor {
         String error = "";
         if (user == null) { // chưa đăng nhập
             error = "Vui lòng đăng nhập";
-        } else if (!user.isRole()) { // không đúng vai trò
+        } else if (user.getRole() != 2) { // không đúng vai trò
             error = "Bạn không được phép truy cập vào đây";
             session.set("user", null);
             UserCurrent.clearNguoiDung();

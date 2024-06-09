@@ -25,7 +25,7 @@ public class NguoiDung {
 	private String password;
 	private LocalDate  ngaytao;
 	private boolean active;
-	private boolean role;
+	private int role;
 	
 	@OneToMany(mappedBy = "nguoiDung", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<YeuThich> yeuThichs;

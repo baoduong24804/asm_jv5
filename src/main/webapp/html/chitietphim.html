@@ -1,0 +1,71 @@
+<div id="chitietphim-form" class="form-section active">
+    <ul class="nav nav-tabs" id="chitietphimTab" role="tablist">
+        <li class="nav-item"><a class="nav-link active" id="chitietphim-edition-tab" data-toggle="tab" href="#chitietphim-edition" role="tab">Chỉnh sửa</a></li>
+        <li class="nav-item"><a class="nav-link" id="chitietphim-list-tab" data-toggle="tab" href="#chitietphim-list" role="tab">Danh sách</a></li>
+    </ul>
+    <div class="tab-content">
+    <div class="alert alert-primary mt-2" role="alert" id="phimSelected">
+			Vui lòng chọn phim cần chỉnh sửa</div>
+        <div class="tab-pane fade show active" id="chitietphim-edition" role="tabpanel">
+            <h2 class="mt-3">Chỉnh sửa Chi tiết phim</h2>
+            
+            <span id="mes"></span>
+            <form>
+                <div class="form-group">
+                    <label for="chitietphim-idphim">ID phim:</label>
+                    <input type="text" class="form-control" id="chitietphim-idphim" name="idphim" value="">
+                </div>
+                <div class="form-group">
+                    <label for="chitietphim-tengoc">Tên gốc:</label>
+                    <input type="text" class="form-control" id="chitietphim-tengoc" name="tengoc" value="">
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="chitietphim-tongsotap">Tổng số tập:</label>
+                        <input type="text" class="form-control" id="chitietphim-tongsotap" name="tongsotap" value="">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="chitietphim-tapmoinhat">Tập mới nhất:</label>
+                        <input type="text" class="form-control" id="chitietphim-tapmoinhat" name="tapmoinhat" value="">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="chitietphim-thoigian">Thời gian:</label>
+                    <input type="text" class="form-control" id="chitietphim-thoigian" name="thoigian" value="">
+                </div>
+                <div class="form-group">
+                    <label for="chitietphim-chatluong">Chất lượng:</label>
+                    <input type="text" class="form-control" id="chitietphim-chatluong" name="chatluong" value="">
+                </div>
+                <div class="form-group">
+                    <label for="chitietphim-mota">Mô tả:</label>
+                    <textarea name="mota" id="chitietphim_mota" class="form-control" rows="3" style="width: 100%"></textarea>
+                </div>
+                <button type="button" id="btn_update_chitietphim" name="btn-chinh-sua-chi-tiet-phim" value="true" class="btn btn-success">Chỉnh sửa</button>
+            </form>
+        </div>
+        <div class="tab-pane fade" id="chitietphim-list" role="tabpanel">
+            <h2 class="mt-3">Danh sách Chi tiết phim</h2>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>ID phim</th>
+                        <th>Tên gốc</th>
+                        <th>Tổng số tập</th>
+                        <th>Tập mới nhất</th>
+                        <th>Thời gian</th>
+                        <th>Chất lượng</th>
+                        <th>Ngày chỉnh sửa</th>
+                        <th>Mô tả</th>
+                        <th>Khác</th>
+                    </tr>
+                </thead>
+                <tbody id="body_ctphim">
+                    <!-- Dữ liệu thêm cho chơi -->
+                    <!-- Bạn có thể thay thế phần này bằng dữ liệu động -->
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

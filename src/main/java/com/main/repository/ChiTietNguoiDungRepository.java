@@ -1,7 +1,10 @@
 package com.main.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.main.model.ChiTietNguoiDung;
@@ -10,6 +13,9 @@ import com.main.model.ChiTietNguoiDung;
 public interface ChiTietNguoiDungRepository extends JpaRepository<ChiTietNguoiDung, Integer>{
 	@Query("SELECT Max(i.idchitiet) as maxId FROM ChiTietNguoiDung i")
     Integer findMaxId();
+	
+	@Query("SELECT i FROM ChiTietNguoiDung i where i.nguoiDung.email LIKE %:keyword%")
+    List<ChiTietNguoiDung> findAllByEmail(@Param("keyword") String keyword);
 	
 
 	

@@ -13,5 +13,10 @@
 		<a style="text-decoration: none;" href="/animu/control">Trang quản lý</a>
 		<br>
 		<a style="text-decoration: none;" href="/animu/logout">Đăng xuất</a>
+		<br>
+		<hr>
+		<a style="text-decoration: none;" href="/animu/test">Test API</a>
+		<hr>
+		<a style="text-decoration: none;" href="/animu/control/test">Trang quản lý test</a>
 </body>
 </html>

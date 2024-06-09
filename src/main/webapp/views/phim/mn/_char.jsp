@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<link rel="stylesheet" type="text/css" href="/css/char.css">
+
 
         <h1 class="my-4">Movie Management Dashboard</h1>
         <div class="row">

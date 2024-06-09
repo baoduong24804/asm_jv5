@@ -40,7 +40,7 @@ public class NguoiDungService {
 			nguoidung.setUser_id(nguoiDungRepository.findMaxId() + 1);
 			nguoidung.setNgaytao(LocalDate.now());
 			nguoidung.setActive(true);
-			nguoidung.setRole(false);
+			nguoidung.setRole(0);
 			
 		} else {
 			//

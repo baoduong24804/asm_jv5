@@ -1,5 +1,7 @@
 package com.main.model;
 
+import java.util.Date;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -18,6 +20,8 @@ public class ChiTietNguoiDung {
 	private boolean is_like;
 	private int vote;
 	private String cmt;
+	private Date date;
+	private String tapphim;
 	
 	@ManyToOne
 	@JoinColumn(name = "user_id")
