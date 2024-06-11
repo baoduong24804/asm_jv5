@@ -1,78 +1,122 @@
-
 .white-hr {
 	border: none;
 	height: 2px;
 	background-color: white;
 }
 
-.form-section {
+.hidden {
 	display: none;
 }
 
-.form-section.active {
-	display: block;
+.selected {
+	background-color: blue;
 }
 
-.sidebar-sticky {
-	height: 100%;
-	overflow-y: auto;
+.sidebar {
+	transition: transform 0.5s ease;
+	/* Thiết lập hiệu ứng chuyển động kéo dài 0.5 giây */
 }
 
-.sidebar-sticky {
-	position: -webkit-sticky;
-	position: sticky;
-	top: 0;
-	height: 100vh;
-	padding-top: 20px;
+#main {
+	transition: transform 0.5s ease;
+	/* Thiết lập hiệu ứng chuyển động kéo dài 0.5 giây */
 }
 
-.sidebar-sticky ul {
-	padding-left: 0;
+#toggle-nav {
+	max-width: 10px;
 }
 
-.sidebar-sticky li {
-	transition: all 0.3s ease;
+ul > li {
+	cursor: pointer;
 }
 
-.sidebar-sticky li:hover {
-	transform: translateX(10px);
+h3 {
+	cursor: pointer;
 }
 
-.sidebar-sticky .nav-link {
-	display: flex;
-	align-items: center;
+.online {
+	background-color: #66bb6a;
+	padding: 2px 4px;
+	border: 2px solid 0;
+	border-radius: 10px;
+}
+.offline {
+	background-color: #ff5733;
+	padding: 2px 4px;
+	border: 2px solid 0;
+	border-radius: 10px;
 }
 
-.sidebar-sticky .nav-link i {
-	margin-right: 10px;
+.nav-tabs .nav-item.show .nav-link,
+.nav-tabs .nav-link.active {
+	background-color: #007bff;
+	border: 1px solid black;
+	color: #fff; /* Màu chữ trắng */
 }
-
-#mainview {
-	display: none;
+@keyframes spin {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
 }
-
-#hiddenInp {
-	display: none;
-}
-
-.spinner-container {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	height: 100vh; /* Full viewport height */
-}
-
-.spinner {
-	border: 8px solid rgba(0, 0, 0, 0.1);
-	border-top: 8px solid #000;
-	border-radius: 50%;
-	width: 50px;
-	height: 50px;
+.reloading {
+	display: inline-block;
 	animation: spin 1s linear infinite;
 }
+.page-item {
+	display: inline-block;
+	padding: 8px 16px;
+	margin: 0 4px;
+	border-radius: 4px;
+	border: 1px solid #ddd;
+	background-color: #f8f9fa;
+	color: #007bff;
+	text-decoration: none; /* Loại bỏ gạch chân nếu có */
+	cursor: pointer;
+	font-family: Arial, sans-serif; /* Chỉnh sửa font nếu cần */
+}
 
-@keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
+.page-item:hover {
+	background-color: #e9ecef;
+	color: #0056b3;
+}
 
+.page-item.active {
+	background-color: #007bff;
+	color: white;
+	border: 1px solid #007bff;
+}
+
+.page-item.disabled {
+	color: #6c757d;
+	cursor: not-allowed;
+	background-color: #e9ecef;
+}
+.manager {
+	background-color: #d1ecf1;
+	color: #0c5460;
+	padding: 2px 4px;
+	border: 2px solid transparent;
+	border-radius: 10px;
+}
+.member {
+	background-color: #d4edda;
+	color: #155724;
+	padding: 2px 4px;
+	border: 2px solid transparent;
+	border-radius: 10px;
+}
+.member-vip {
+	background-color: #f8d7da;
+	color: #721c24;
+	padding: 2px 4px;
+	border: 2px solid transparent;
+	border-radius: 10px;
+}
+/* Trong file style.css hoặc thẻ <style> */
+.custom-alert {
+	display: flex; /* Sử dụng flexbox để căn chỉnh */
+	align-items: center; /* Căn giữa theo chiều dọc */
+}

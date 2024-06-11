@@ -19,7 +19,6 @@ import com.main.model.NguoiDung;
 import com.main.repository.MailerService;
 import com.main.repository.NguoiDungRepository;
 
-
 @RestController
 public class APIMailController {
 	@Autowired
@@ -27,42 +26,42 @@ public class APIMailController {
 
 	@Autowired
 	NguoiDungRepository nguoiDungRepository;
-	
+
 	@Value("${upload.directory}")
 	private String uploadDirectory;
-	
+
 	private List<NguoiDung> listAdd = new ArrayList<NguoiDung>();
-	
+
 	@GetMapping("/animu/api/clear/listmail")
 	public String getMethodName() {
-		
-		listAdd.removeAll(listAdd);
+
+		// listAdd.removeAll(listAdd);
 		listAdd = null;
 		return "";
 	}
-	
-	
+
 	@GetMapping("/animu/api/add/listmail/{type}")
 	public List<NguoiDung> addEmail(@PathVariable("type") int type) {
 		List<NguoiDung> list = nguoiDungRepository.findAll();
 		List<NguoiDung> listreturn = new ArrayList<NguoiDung>();
-		
-		if(type == 0) {
+
+		if (type == 0) {
 			for (NguoiDung nguoiDung : list) {
-					NguoiDung ng = new NguoiDung();
-					ng.setEmail(nguoiDung.getEmail());
-					ng.setUser_id(nguoiDung.getUser_id());
-					ng.setUsername(nguoiDung.getUsername());
-					ng.setNgaytao(nguoiDung.getNgaytao());
-					listreturn.add(ng);
-				}
+				NguoiDung ng = new NguoiDung();
+				ng.setEmail(nguoiDung.getEmail());
+				ng.setUser_id(nguoiDung.getUser_id());
+				ng.setUsername(nguoiDung.getUsername());
+				ng.setNgaytao(nguoiDung.getNgaytao());
+				listreturn.add(ng);
+			}
 			listAdd = listreturn;
 			return listreturn;
-		}else {
+		} else {
 			for (NguoiDung nguoiDung : list) {
-				LocalDate dateToCheck = LocalDate.of(nguoiDung.getNgaytao().getYear(), nguoiDung.getNgaytao().getMonth(), nguoiDung.getNgaytao().getDayOfMonth()); // Example date
+				LocalDate dateToCheck = LocalDate.of(nguoiDung.getNgaytao().getYear(),
+						nguoiDung.getNgaytao().getMonth(), nguoiDung.getNgaytao().getDayOfMonth()); // Example date
 				boolean isMoreThanOneYearOld = isDateMoreThanOneYearOld(dateToCheck);
-				if(isMoreThanOneYearOld) {
+				if (isMoreThanOneYearOld) {
 					NguoiDung ng = new NguoiDung();
 					ng.setEmail(nguoiDung.getEmail());
 					ng.setUser_id(nguoiDung.getUser_id());
@@ -74,15 +73,15 @@ public class APIMailController {
 			listAdd = listreturn;
 			return listreturn;
 		}
-		
+
 	}
-	
+
 	@PostMapping("/animu/control/guimail")
 	public String sendMail(@RequestParam("file") MultipartFile[] file, @RequestParam("from") String from,
 			@RequestParam("text") String body, @RequestParam("subject") String subject,
 			@RequestParam("options") boolean options) {
-		
-		if(listAdd == null || listAdd.size() == 0) {
+
+		if (listAdd == null || listAdd.size() == 0) {
 			return "0,Vui lòng thêm email vào danh sách gửi";
 		}
 
@@ -92,9 +91,8 @@ public class APIMailController {
 			mailInfo.setTo(listAdd.getFirst().getEmail().toLowerCase().trim());
 			mailInfo.setSubject(subject);
 			mailInfo.setBody(body);
-		
+
 			if (options) {
-				
 
 				if (listAdd.size() > 1) {
 					String cc = "";
@@ -103,10 +101,8 @@ public class APIMailController {
 					}
 					mailInfo.setCc(cc.split(","));
 				}
-				
-			} else {
 
-				
+			} else {
 
 				if (listAdd.size() > 1) {
 					String bcc = "";
@@ -115,7 +111,6 @@ public class APIMailController {
 					}
 					mailInfo.setBcc(bcc.split(","));
 				}
-				
 
 			}
 
@@ -144,7 +139,7 @@ public class APIMailController {
 			mailer.queue(mailInfo);
 			// model.addAttribute("message", "Email đã được đưa vào hàng đợi và sẽ được gửi
 			// sớm.");
-			
+
 			return "1, Đã thêm vào danh sách chờ. Gửi email sau khoảng 5 giây";
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -154,10 +149,10 @@ public class APIMailController {
 		}
 
 	}
-	
+
 	public static boolean isDateMoreThanOneYearOld(LocalDate date) {
-        LocalDate oneYearAgo = LocalDate.now().minusYears(1);
-        return date.isBefore(oneYearAgo);
-    }
-	
+		LocalDate oneYearAgo = LocalDate.now().minusYears(1);
+		return date.isBefore(oneYearAgo);
+	}
+
 }

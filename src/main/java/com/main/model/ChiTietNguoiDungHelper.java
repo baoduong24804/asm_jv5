@@ -17,5 +17,6 @@ public class ChiTietNguoiDungHelper {
 	private int vote;
 	private boolean like;
 	private Date date;
+	private String img;
 
 }

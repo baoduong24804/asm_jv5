@@ -11,40 +11,57 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.main.model.ChiTietPhim;
+import com.main.model.NguoiDung;
 import com.main.model.Phim;
 import com.main.model.TapPhim;
 
 import jakarta.transaction.Transactional;
 
-
 @Repository
-public interface PhimRepository extends JpaRepository<Phim, Integer>{
+public interface PhimRepository extends JpaRepository<Phim, Integer> {
 	@Query("SELECT Max(i.idphim) as maxId FROM Phim i")
-    Integer findMaxId();
-	
+	Integer findMaxId();
+
+	@Query("SELECT u FROM Phim u where  u.active = false")
+	List<Phim> findByNoActive();
+
+	@Query("SELECT p FROM Phim p ORDER BY p.ngaytao DESC")
+	List<Phim> findAllPhimOrderByNgayTaoDESC(Pageable pageable);
+
 	@Query("SELECT i FROM Phim i where i.active = true")
-    List<Phim> findAllPhimActive();
-	
+	List<Phim> findAllPhimActive();
+
 	@Query("SELECT p FROM Phim p WHERE p.tieude LIKE %:keyword%")
-    List<Phim> findAllPhimLikeTieuDe(@Param("keyword") String keyword);
-	
+	List<Phim> findAllPhimLikeTieuDe(@Param("keyword") String keyword);
+
 	@Query("SELECT u FROM ChiTietPhim u where u.idphim =:idphim")
 	ChiTietPhim findChiTietPhimByID(@Param("idphim") Integer userId);
 
 	@Query("SELECT u FROM TapPhim u where u.phim.idphim =:idphim")
 	List<TapPhim> findTapPhimByID(@Param("idphim") Integer userId);
-	
+
 	@Query("SELECT u FROM TapPhim u where u.phim.idphim =:idphim and u.idtapphim =:idtapphim")
-	TapPhim findTapPhimByIDAndIDPhim(@Param("idtapphim") Integer idtapphim,@Param("idphim") Integer idphim);
-	
+	TapPhim findTapPhimByIDAndIDPhim(@Param("idtapphim") Integer idtapphim, @Param("idphim") Integer idphim);
+
 	@Query("SELECT u FROM TapPhim u where u.phim.idphim =:idphim")
 	List<TapPhim> findAllTapPhimByIDAndIDPhim(@Param("idphim") Integer idphim);
-	
-	@Modifying
-    @Transactional
-    @Query("UPDATE TapPhim tp SET tp.server = :server, tp.tentap = :tentap, tp.slug = :slug,tp.link = :link,tp.link2 = :link2 WHERE tp.phim.idphim = :idphim AND tp.idtapphim = :idtapphim")
-    void updateTapPhim(@Param("idphim") int idphim, @Param("idtapphim") int idtapphim, @Param("server") String newServer, @Param("tentap") String newTentap,@Param("slug") String slug, @Param("link") String newLink,@Param("link2") String newLink2);
 
-	@Query("Select o from Phim o where o.chitietphim.phanLoai.loaiphim =:loaiphim")
+	@Query("SELECT p FROM Phim p where p.slug =:slug")
+	List<Phim> findPhimBySlug(@Param("slug") String slug);
+
+	@Modifying
+	@Transactional
+	@Query("UPDATE TapPhim tp SET tp.server = :server, tp.tentap = :tentap, tp.slug = :slug,tp.link = :link,tp.link2 = :link2 WHERE tp.phim.idphim = :idphim AND tp.idtapphim = :idtapphim")
+	void updateTapPhim(@Param("idphim") int idphim, @Param("idtapphim") int idtapphim,
+			@Param("server") String newServer, @Param("tentap") String newTentap, @Param("slug") String slug,
+			@Param("link") String newLink, @Param("link2") String newLink2);
+
+	@Query("Select o from Phim o where o.chitietphim.phanLoai.loaiphim LIKE %:loaiphim%")
 	Page<Phim> findPhimByPhanLoai(@Param("loaiphim") String loaiphim, Pageable pageable);
+
+	@Query("Select o from Phim o")
+	Page<Phim> findPhimAll(Pageable pageable);
+
+	@Query("SELECT p FROM Phim p WHERE p.tieude LIKE %:keyword%")
+	Page<Phim> findAllPhimLikeTieuDeAndPage(@Param("keyword") String keyword, Pageable pageable);
 }

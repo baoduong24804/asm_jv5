@@ -10,7 +10,6 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import com.main.controller.mn.phim.MailController;
 import com.main.model.MailInfo;
 import com.main.repository.MailerService;
 
@@ -77,16 +76,13 @@ public class MailerServiceImpl implements MailerService {
 	@Scheduled(fixedDelay = 5000)
 	public void run() {
 		while (!list.isEmpty()) {
-			
+
 			MailInfo mail = list.remove(0);
-			
-			
-			
-			
+
 			try {
-				
+
 				this.send(mail);
-				MailController.mes = "Xong";
+
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

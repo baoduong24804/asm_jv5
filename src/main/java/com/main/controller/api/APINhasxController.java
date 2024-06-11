@@ -22,16 +22,15 @@ public class APINhasxController {
 	public NhaXSVaDienVien getMethodName(@PathVariable("idnhasxvadv") String idnhasxvadv) {
 		NhaXSVaDienVien nhaXSVaDienVien = new NhaXSVaDienVien();
 		NhaXSVaDienVien n = nhaXSVaDienVienRepository.findById(Integer.parseInt(idnhasxvadv)).get();
-		
+
 		nhaXSVaDienVien.setIdnhasxvadv(n.getIdnhasxvadv());
 		nhaXSVaDienVien.setIdphim(n.getIdphim());
 		nhaXSVaDienVien.setTen(n.getTen());
 		nhaXSVaDienVien.setVaitro(n.isVaitro());
-		
-		
+
 		return nhaXSVaDienVien;
 	}
-	
+
 	@GetMapping("animu/api/get/listnhasx")
 	public List<NhaXSVaDienVien> getnhasx() {
 		List<NhaXSVaDienVien> list = new ArrayList<NhaXSVaDienVien>();
@@ -49,7 +48,7 @@ public class APINhasxController {
 					n.setIdphim(APIPhimController.editPhim);
 					nhaXSVaDienVienRepository.save(n);
 
-					NhaXSVaDienVien n2 = new NhaXSVaDienVien();
+					// NhaXSVaDienVien n2 = new NhaXSVaDienVien();
 					n.setVaitro(true);
 					n.setIdnhasxvadv(nhaXSVaDienVienRepository.findMaxId() + 1);
 					n.setIdphim(APIPhimController.editPhim);
@@ -93,32 +92,27 @@ public class APINhasxController {
 		}
 		return null;
 	}
-	
-	
+
 	@PostMapping("/animu/api/update/nhasx/{idnhasxvadv}")
-	public String update(@PathVariable("idnhasxvadv") String idnhasxvadv, @RequestBody NhaXSVaDienVien nhaXSVaDienVien) {
+	public String update(@PathVariable("idnhasxvadv") String idnhasxvadv,
+			@RequestBody NhaXSVaDienVien nhaXSVaDienVien) {
 		NhaXSVaDienVien p = null;
 		try {
-		
+
 			p = nhaXSVaDienVienRepository.findById(Integer.parseInt(idnhasxvadv)).get();
-			
+
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
 			return "0,Cập nhật thất bại";
 		}
-		
-		
+
 		p.setTen(nhaXSVaDienVien.getTen());
-		
-		
-		
-		
+
 		nhaXSVaDienVienRepository.save(p);
-		
-		
-		return "1,Cập nhật thành công Nhà sản xuất và diễn viên[ idnhasxvadv :"+String.valueOf(idnhasxvadv)+"]";
-		
+
+		return "1,Cập nhật thành công Nhà sản xuất và diễn viên[ idnhasxvadv :" + String.valueOf(idnhasxvadv) + "]";
+
 	}
-	
+
 }

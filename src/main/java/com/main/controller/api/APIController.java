@@ -29,28 +29,28 @@ public class APIController {
 		if (option == 2) {
 			html = Reader.readFile("\\src\\main\\webapp\\html\\phim.html");
 		}
-		if(option == 3) {
+		if (option == 3) {
 			html += Reader.readFile("\\src\\main\\webapp\\html\\chitietphim.html");
 		}
-		if(option == 4) {
+		if (option == 4) {
 			html += Reader.readFile("\\src\\main\\webapp\\html\\tapphim.html");
 		}
-		if(option == 5) {
+		if (option == 5) {
 			html += Reader.readFile("\\src\\main\\webapp\\html\\nhasx.html");
 		}
-		if(option == 6) {
+		if (option == 6) {
 			html += Reader.readFile("\\src\\main\\webapp\\html\\phanloai.html");
 		}
-		if(option == 7) {
+		if (option == 7) {
 			html += Reader.readFile("\\src\\main\\webapp\\html\\nguoidung.html");
 		}
-		if(option == 8) {
+		if (option == 8) {
 			html += Reader.readFile("\\src\\main\\webapp\\html\\chitietnguoidung.html");
 		}
-		if(option == 9) {
+		if (option == 9) {
 			html += Reader.readFile("\\src\\main\\webapp\\html\\yeuthich.html");
 		}
-		if(option == 10) {
+		if (option == 10) {
 			html += Reader.readFile("\\src\\main\\webapp\\html\\mail.html");
 		}
 		return html;
@@ -63,29 +63,40 @@ public class APIController {
 		return s;
 	}
 
-//	@GetMapping("animu/api/load/listphim")
-//	public String listphim() {
-//		List<Phim> list = phimRepository.findAll();
-//		String s = "";
-//		for (Phim phim : list) {
-//			s += "<tr>" 
-//		+ "<td>" + phim.getIdphim() + "</td>" 
-//				+ "<td>" + phim.getTieude() + "</td>" 
-//						+ "<td>" + phim.getSlug() + "</td>" 
-//								+ "<td>" + Utils.dateToString(phim.getNgaytao(), "dd-MM-yyyy HH:mm:ss") + "</td>" 
-//										+ "<td>" + phim.getThumb_url() + "</td>" 
-//												+ "<td>" + phim.getPoster_url() + "</td>" 
-//														+ "<td>"+(phim.isActive()? "<span class='online'>" : "<span class='offline'>")+  (phim.isActive()? "Đang hoạt động" : "Không hoạt động") + "</span></td>" 
-//																+ "<td>" + "<button class='btn btn-primary btn-edit-phim' value='"+(phim.getIdphim())+"'>Chỉnh sửa</button>" + "</td>" 
-//					+ "</tr>";
-//		}
-//
-//		return s;
-//	}
-	
+	@GetMapping("animu/api/char2")
+	public String getMethodName2() {
+		String s = "";
+		s = nguoiDungRepository.findByNoActive().size() + "," + "" + phimRepository.findByNoActive().size();
+		return s;
+	}
+
+	// @GetMapping("animu/api/load/listphim")
+	// public String listphim() {
+	// List<Phim> list = phimRepository.findAll();
+	// String s = "";
+	// for (Phim phim : list) {
+	// s += "<tr>"
+	// + "<td>" + phim.getIdphim() + "</td>"
+	// + "<td>" + phim.getTieude() + "</td>"
+	// + "<td>" + phim.getSlug() + "</td>"
+	// + "<td>" + Utils.dateToString(phim.getNgaytao(), "dd-MM-yyyy HH:mm:ss") +
+	// "</td>"
+	// + "<td>" + phim.getThumb_url() + "</td>"
+	// + "<td>" + phim.getPoster_url() + "</td>"
+	// + "<td>"+(phim.isActive()? "<span class='online'>" : "<span
+	// class='offline'>")+ (phim.isActive()? "Đang hoạt động" : "Không hoạt động") +
+	// "</span></td>"
+	// + "<td>" + "<button class='btn btn-primary btn-edit-phim'
+	// value='"+(phim.getIdphim())+"'>Chỉnh sửa</button>" + "</td>"
+	// + "</tr>";
+	// }
+	//
+	// return s;
+	// }
+
 	// co phan trang
 	@GetMapping("animu/api/load/listphim")
-	public List<Phim> phantrang(){
+	public List<Phim> phantrang() {
 		List<Phim> list = phimRepository.findAll();
 		List<Phim> listnew = new ArrayList<Phim>();
 		for (Phim phim : list) {
@@ -99,10 +110,8 @@ public class APIController {
 			p.setTieude(phim.getTieude());
 			listnew.add(p);
 		}
-		
+
 		return listnew;
 	}
-	
-	
 
 }

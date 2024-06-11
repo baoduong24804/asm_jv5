@@ -11,6 +11,7 @@ function loading() {
 }
 
 
+
 function loaded(result) {
 	$('#mes').removeClass();
 	$('#mes').html('');
@@ -34,7 +35,7 @@ function postwithfile(url, data, callback) {
 		data: data,
 		processData: false, // Important
 		contentType: false, // Important
-		success: function(result) {
+		success: function (result) {
 			callback(result);
 		}
 	});
@@ -44,7 +45,7 @@ function getAPI(url, callback) {
 	$.ajax({
 		url: url,
 		type: "GET",
-		success: function(result) {
+		success: function (result) {
 			callback(result);
 		}
 	});
@@ -55,7 +56,7 @@ function PostAPINotJson(url, data, callback) {
 		url: url,
 		type: "POST",
 		data: data,
-		success: function(result) {
+		success: function (result) {
 
 			callback(result);
 		}
@@ -68,7 +69,7 @@ function PostAPI(url, data, callback) {
 		type: "POST",
 		contentType: 'application/json',
 		data: JSON.stringify(data),
-		success: function(result) {
+		success: function (result) {
 
 			callback(result);
 		}
@@ -129,10 +130,11 @@ function phantrang(result) {
 		var endIndex = startIndex + moviesPerPage;
 		var paginatedMovies = movies.slice(startIndex, endIndex);
 
+
 		var movieList = $('#table-body');
 		movieList.empty();
 
-		$.each(paginatedMovies, function(index, movie) {
+		$.each(paginatedMovies, function (index, movie) {
 			var date = new Date(movie.ngaytao);
 
 
@@ -176,7 +178,7 @@ function phantrang(result) {
 
 		// Add "Go to First Page" and "Go to Last Page" buttons
 		pagination.append($('<span class="page-item go-to-first">1</span>').attr('data-target', 1));
-		if (totalPages > 2) {
+		if (totalPages > 1) {
 			pagination.append($('<span class="page-item go-to-last">' + totalPages + '</span>').attr('data-target', totalPages));
 		}
 
@@ -184,7 +186,7 @@ function phantrang(result) {
 		updateVisiblePages(currentPage);
 
 		// Setup click handlers
-		pagination.on('click', '.page-item', function(e) {
+		pagination.on('click', '.page-item', function (e) {
 
 			var page = $(this).attr('data-target');// lay gia tri cua trang duoc chon
 
@@ -194,7 +196,7 @@ function phantrang(result) {
 		});
 
 		// Click handler for "Go to First Page"
-		pagination.on('click', '.go-to-first', function(e) {
+		pagination.on('click', '.go-to-first', function (e) {
 
 			currentPage = 1;
 			displayMovies(movies, currentPage);
@@ -202,7 +204,7 @@ function phantrang(result) {
 		});
 
 		// Click handler for "Go to Last Page"
-		pagination.on('click', '.go-to-last', function(e) {
+		pagination.on('click', '.go-to-last', function (e) {
 
 			currentPage = totalPages;
 			displayMovies(movies, currentPage);
@@ -232,7 +234,7 @@ function phantrang(result) {
 	}
 
 	function updatePaginationUI(currentPage) {
-		$('#pagination .page-item').removeClass('active').filter(function() {
+		$('#pagination .page-item').removeClass('active').filter(function () {
 			return $(this).attr('data-target') == currentPage;
 		}).addClass('active');
 	}
@@ -248,7 +250,7 @@ function phantrang(result) {
 /////.append////////////////////// ở trên ko đụng tới////////////////////////////////////
 
 function loadPhimForm() {
-	getAPI('/animu/api/get/phim', function(result) {
+	getAPI('/animu/api/get/phim', function (result) {
 
 		$('#idphim').val(result.idphim);
 		$('#tieude').val(result.tieude);
@@ -281,7 +283,7 @@ function phantrangnguoidung(result) {
 		var movieList = $('#body-nguoidung');
 		movieList.empty();
 
-		$.each(paginatedMovies, function(index, movie) {
+		$.each(paginatedMovies, function (index, movie) {
 			var date = new Date(movie.ngaytao);
 
 			// Lấy thời gian theo múi giờ Việt Nam (GMT+7)
@@ -340,7 +342,7 @@ function phantrangnguoidung(result) {
 			////////////////
 
 		});
-		$('.btn-edit-chitietphim').off('click').click(function() {
+		$('.btn-edit-chitietphim').off('click').click(function () {
 			var idnguoidung = $(this).val();
 
 			updatenguoidung(idnguoidung);
@@ -356,7 +358,7 @@ function phantrangnguoidung(result) {
 
 		// Add "Go to First Page" and "Go to Last Page" buttons
 		pagination.append($('<span class="page-item go-to-first">1</span>').attr('data-target', 1));
-		if (totalPages > 2) {
+		if (totalPages > 1) {
 			pagination.append($('<span class="page-item go-to-last">' + totalPages + '</span>').attr('data-target', totalPages));
 		}
 
@@ -364,7 +366,7 @@ function phantrangnguoidung(result) {
 		updateVisiblePages(currentPage);
 
 		// Setup click handlers
-		pagination.on('click', '.page-item', function(e) {
+		pagination.on('click', '.page-item', function (e) {
 
 			var page = $(this).attr('data-target');// lay gia tri cua trang duoc chon
 
@@ -374,7 +376,7 @@ function phantrangnguoidung(result) {
 		});
 
 		// Click handler for "Go to First Page"
-		pagination.on('click', '.go-to-first', function(e) {
+		pagination.on('click', '.go-to-first', function (e) {
 
 			currentPage = 1;
 			displayMovies(movies, currentPage);
@@ -382,7 +384,7 @@ function phantrangnguoidung(result) {
 		});
 
 		// Click handler for "Go to Last Page"
-		pagination.on('click', '.go-to-last', function(e) {
+		pagination.on('click', '.go-to-last', function (e) {
 
 			currentPage = totalPages;
 			displayMovies(movies, currentPage);
@@ -412,7 +414,7 @@ function phantrangnguoidung(result) {
 	}
 
 	function updatePaginationUI(currentPage) {
-		$('#pagination .page-item').removeClass('active').filter(function() {
+		$('#pagination .page-item').removeClass('active').filter(function () {
 			return $(this).attr('data-target') == currentPage;
 		}).addClass('active');
 	}
@@ -444,8 +446,26 @@ function phantrangchitietnguoidung(result) {
 		var movieList = $('#body-chitietnguoidung');
 		movieList.empty();
 
-		$.each(paginatedMovies, function(index, movie) {
+		$.each(paginatedMovies, function (index, movie) {
+			var date = new Date(movie.date);
 
+
+			// Lấy thời gian theo múi giờ Việt Nam (GMT+7)
+			var vietnamOffset = 7 * 60; // GMT+7 trong phút
+			var localOffset = date.getTimezoneOffset(); // Phút lệch so với GMT của giờ địa phương
+			var vietnamTime = new Date(date.getTime() + (vietnamOffset + localOffset) * 60 * 1000);
+
+			// Lấy các thành phần ngày giờ theo múi giờ Việt Nam
+			var hours = vietnamTime.getHours().toString().padStart(2, '0');
+			var minutes = vietnamTime.getMinutes().toString().padStart(2, '0');
+			var seconds = vietnamTime.getSeconds().toString().padStart(2, '0');
+			var day = vietnamTime.getDate().toString().padStart(2, '0');
+			var month = (vietnamTime.getMonth() + 1).toString().padStart(2, '0'); // Tháng bắt đầu từ 0
+			var year = vietnamTime.getFullYear();
+
+
+			var ngay = `Ngày${day} Tháng ${month} Năm ${year}`;
+			var thoigian = `${hours}Giờ ${minutes}Phút ${seconds}Giây`;
 
 			var listItem = $('<tr class="text-center">');
 			listItem.append('<td>' + movie.idchitiet + '</td>');
@@ -464,7 +484,7 @@ function phantrangchitietnguoidung(result) {
 				like = 'Chưa thích';
 			}
 			listItem.append('<td>' + like + '</td>');
-			listItem.append('<td>' + movie.date + '</td>');
+			listItem.append('<td>' + ngay + '<br>' + thoigian + '</td>');
 			listItem.append("<td>" + "<button class='btn btn-danger btn-delete-chitietnguoidung' value='" + (movie.idchitiet) + "'>Xóa hành động</button>" + "</td>");
 			listItem.append("<td>" + "<button class='btn btn-warning btn-delete-chitietnguoidung-cmt' value='" + (movie.idchitiet) + "'>Xóa bình luận</button>" + "</td>");
 			listItem.append('</tr>');
@@ -475,7 +495,7 @@ function phantrangchitietnguoidung(result) {
 			////////////////
 
 		});
-		$('.btn-edit-chitietphim').off('click').click(function() {
+		$('.btn-edit-chitietphim').off('click').click(function () {
 			var idnguoidung = $(this).val();
 
 			updatenguoidung(idnguoidung);
@@ -493,7 +513,7 @@ function phantrangchitietnguoidung(result) {
 
 		// Add "Go to First Page" and "Go to Last Page" buttons
 		pagination.append($('<span class="page-item go-to-first">1</span>').attr('data-target', 1));
-		if (totalPages > 2) {
+		if (totalPages > 1) {
 			pagination.append($('<span class="page-item go-to-last">' + totalPages + '</span>').attr('data-target', totalPages));
 		}
 
@@ -501,7 +521,7 @@ function phantrangchitietnguoidung(result) {
 		updateVisiblePages(currentPage);
 
 		// Setup click handlers
-		pagination.on('click', '.page-item', function(e) {
+		pagination.on('click', '.page-item', function (e) {
 
 			var page = $(this).attr('data-target');// lay gia tri cua trang duoc chon
 
@@ -511,7 +531,7 @@ function phantrangchitietnguoidung(result) {
 		});
 
 		// Click handler for "Go to First Page"
-		pagination.on('click', '.go-to-first', function(e) {
+		pagination.on('click', '.go-to-first', function (e) {
 
 			currentPage = 1;
 			displayMovies(movies, currentPage);
@@ -519,7 +539,7 @@ function phantrangchitietnguoidung(result) {
 		});
 
 		// Click handler for "Go to Last Page"
-		pagination.on('click', '.go-to-last', function(e) {
+		pagination.on('click', '.go-to-last', function (e) {
 
 			currentPage = totalPages;
 			displayMovies(movies, currentPage);
@@ -549,7 +569,7 @@ function phantrangchitietnguoidung(result) {
 	}
 
 	function updatePaginationUI(currentPage) {
-		$('#pagination .page-item').removeClass('active').filter(function() {
+		$('#pagination .page-item').removeClass('active').filter(function () {
 			return $(this).attr('data-target') == currentPage;
 		}).addClass('active');
 	}
@@ -564,7 +584,7 @@ function phantrangchitietnguoidung(result) {
 //////////////////////////////////// ở trên ko đụng tới////////////////////////////////////
 
 function loadPhimForm() {
-	getAPI('/animu/api/get/phim', function(result) {
+	getAPI('/animu/api/get/phim', function (result) {
 
 		$('#idphim').val(result.idphim);
 		$('#tieude').val(result.tieude);
@@ -585,10 +605,10 @@ function loadPhimForm() {
 // thêm sự kiện click cho button chỉnh sửa ở trang danh sách phim
 function addbtneditphim() {
 
-	$('.btn-edit-phim').off('click').click(function() {
+	$('.btn-edit-phim').off('click').click(function () {
 		var idphim = $(this).val();
 
-		getAPI('/animu/api/get/phim/' + idphim, function(result) {
+		getAPI('/animu/api/get/phim/' + idphim, function (result) {
 
 			$('#idphim').val(result.idphim);
 			$('#tieude').val(result.tieude);
@@ -620,7 +640,7 @@ function addbtneditphim() {
 }
 // hiển thị thông báo phim đang được chỉnh sửa
 function getThongBaoPhim() {
-	getAPI('/animu/api/get/editPhim', function(result) {
+	getAPI('/animu/api/get/editPhim', function (result) {
 		var phim = result.split(',');
 		if (phim.length > 1) {
 			$('#phimSelected').text(phim[0] + ' : ' + phim[1]);
@@ -642,7 +662,7 @@ function addClickForPhim() {
 			key: $('#searchInput').val()
 		}
 
-		PostAPINotJson('/animu/api/search/phim', data, function(result) {
+		PostAPINotJson('/animu/api/search/phim', data, function (result) {
 			phantrang(result);
 			//	addbtneditphim();
 		});
@@ -668,7 +688,7 @@ function addClickForPhim() {
 			active: $('#phim-active').prop('checked')
 		};
 
-		PostAPI(url + idphim, data, function(result) {
+		PostAPI(url + idphim, data, function (result) {
 
 			$('#mes').removeClass();
 			var mes = result.split(',');
@@ -682,7 +702,7 @@ function addClickForPhim() {
 				$('#mes').addClass('text-success');
 			}
 			// chinh sua xong => load lai du lieu
-			getAPI('/animu/api/load/listphim', function(result) {
+			getAPI('/animu/api/load/listphim', function (result) {
 				phantrang(result);
 
 
@@ -709,7 +729,7 @@ function addClickForPhim() {
 
 		var url = '/animu/api/insert/phim';
 
-		PostAPI(url, data, function(result) {
+		PostAPI(url, data, function (result) {
 			$('#mes').removeClass();
 
 			$('#mes').empty();
@@ -726,7 +746,7 @@ function addClickForPhim() {
 				$('#mes').addClass('text-success');
 			}
 			// them sua xong => cap nhat 
-			getAPI('/animu/api/load/listphim', function(result) {
+			getAPI('/animu/api/load/listphim', function (result) {
 
 				phantrang(result);
 
@@ -749,14 +769,14 @@ function addClickForPhim() {
 		$('#phimSelected').text('Vui lòng chọn phim cần chỉnh sửa');
 		$('#mes').text('');
 		// clear sua xong => cap nhat 
-		getAPI('/animu/api/phim/clearPhim', function(result) {
+		getAPI('/animu/api/phim/clearPhim', function (result) {
 
 
 
 			//addbtneditphim();
 
 		});
-		getAPI('/animu/api/load/listphim', function(result) {
+		getAPI('/animu/api/load/listphim', function (result) {
 
 			phantrang(result);
 
@@ -770,16 +790,16 @@ function addClickForPhim() {
 
 
 // thêm các sự kiện hoặc load dữ liệu cần thiết cho trang
-$(document).ready(function() {
+$(document).ready(function () {
 
-	getAPI('/animu/api/' + 1, function(result) {
+	getAPI('/animu/api/' + 1, function (result) {
 		html = result;
 		$('#main').html(html);
 		getThongBaoPhim();// hien thi thong bao phim dang duoc edit
 	});
 	///
 	// lay du lieu tong user va phim
-	getAPI('/animu/api/char', function(result) {
+	getAPI('/animu/api/char', function (result) {
 		var data = result.split(',');
 		$('#total-users').text(data[0]);
 		$('#total-movies').text(data[1]);
@@ -790,12 +810,12 @@ $(document).ready(function() {
 	$('#option1').addClass('selected');
 
 
-	$('.nav-item').off('click').click(function() {
+	$('.nav-item').off('click').click(function () {
 		// Lấy giá trị của data-target từ mục menu được chọn
 		var option = $(this).attr('data-target');
 		var html = '';
 		// tai trang html
-		getAPI('/animu/api/' + option, function(result) {
+		getAPI('/animu/api/' + option, function (result) {
 			html = result;
 			$('#main').html(html);
 			getThongBaoPhim();// hien thi thong bao phim dang duoc edit
@@ -803,7 +823,7 @@ $(document).ready(function() {
 			// tai du lieu len trang
 			if (option == 1) {
 				// lay du lieu tong user va phim
-				getAPI('/animu/api/char', function(result) {
+				getAPI('/animu/api/char', function (result) {
 					var data = result.split(',');
 					$('#total-users').text(data[0]);
 					$('#total-movies').text(data[1]);
@@ -814,7 +834,7 @@ $(document).ready(function() {
 
 
 			if (option == 2) {
-				getAPI('/animu/api/load/listphim', function(result) {
+				getAPI('/animu/api/load/listphim', function (result) {
 
 					phantrang(result);
 
@@ -844,15 +864,15 @@ $(document).ready(function() {
 				addClickSuaNhasx();
 
 			}
-			
-			if(option == 6){
+
+			if (option == 6) {
 				loadlistPhanLoai();
 				addclickPhanLoai();
 			}
 
 			if (option == 7) {
 				loadnguoidunglist();
-				$('#btn_timkiem_phim').off('click').click(function() {
+				$('#btn_timkiem_phim').off('click').click(function () {
 					searchNguoiDung();
 				});
 				loadvaitro();
@@ -875,7 +895,7 @@ $(document).ready(function() {
 
 
 	// doi backgound khi duoc click 
-	$('.nav-item').click(function() {
+	$('.nav-item').click(function () {
 		// Xóa lớp 'selected' từ tất cả các đoạn văn
 		$('.nav-item').removeClass('selected');
 		// Thêm lớp 'selected' cho đoạn văn được click
@@ -883,27 +903,27 @@ $(document).ready(function() {
 	});
 
 	// Xử lý sự kiện click cho phần tử h1 có id là phimbtn
-	$('#phimbtn').click(function() {
+	$('#phimbtn').click(function () {
 		// Slide toggle all hidden menu items
 		$('.menu-item-phim').slideToggle('slow');
 	});
 
-	$('#userbtn').click(function() {
+	$('#userbtn').click(function () {
 		// Slide toggle all hidden menu items
 		$('.menu-item-user').slideToggle('slow');
 	});
 
-	$('#otherbtn').click(function() {
+	$('#otherbtn').click(function () {
 		// Slide toggle all hidden menu items
 		$('.menu-item-other').slideToggle('slow');
 	});
 
 
 	$('.nav-item').hover(
-		function() {
+		function () {
 			$(this).css('transform', 'translateX(15px)'); // Di chuyển phần tử sang phải khi hover vào
 		},
-		function() {
+		function () {
 			$(this).css('transform', 'translateX(0)'); // Đưa phần tử về vị trí ban đầu khi rời chuột ra
 		}
 	);
@@ -921,7 +941,7 @@ $(document).ready(function() {
 
 // load dữ liệu lên form chi tiết phim khi chọn nút edit từ danh sách Phim
 function loadctphimform() {
-	getAPI('/animu/api/get/chitietphim', function(result) {
+	getAPI('/animu/api/get/chitietphim', function (result) {
 
 		$('#chitietphim-idphim').val(result.idphim);
 		$('#chitietphim-tengoc').val(result.tengoc);
@@ -972,7 +992,7 @@ function addClickChiTietPhim() {
 
 		};
 
-		PostAPI(url, data, function(result) {
+		PostAPI(url, data, function (result) {
 			$('#mes').removeClass();
 			$('#mes').empty();
 			var mes = result.split(',');
@@ -989,7 +1009,7 @@ function addClickChiTietPhim() {
 
 
 function loadctphimlist() {
-	getAPI('/animu/api/get/chitietphim', function(result) {
+	getAPI('/animu/api/get/chitietphim', function (result) {
 
 
 		if (result.length != 0) {
@@ -1029,7 +1049,7 @@ function loadctphimlist() {
 			$('#body_ctphim').html(listItem);
 
 			////
-			$('.btn-edit-chitietphim').off('click').click(function() {
+			$('.btn-edit-chitietphim').off('click').click(function () {
 				loadctphimform();
 			});
 		}
@@ -1041,9 +1061,9 @@ function loadctphimlist() {
 /////////////////// Nguoi dung ///////////////////////////////
 function loadvaitro() {
 
-	getAPI('/animu/api/get/nguoidung/vaitro', function(result) {
+	getAPI('/animu/api/get/nguoidung/vaitro', function (result) {
 		$('#roleSelect').append('<option value="-1">Tất cả</option>');
-		$.each(result, function(index, item) {
+		$.each(result, function (index, item) {
 			// index = key;
 			$('#roleSelect').append('<option value=' + index + '>' + item + '</option>');
 		});
@@ -1059,7 +1079,7 @@ function searchNguoiDung() {
 	}
 
 
-	PostAPINotJson('/animu/api/search/nguoidung', data, function(result) {
+	PostAPINotJson('/animu/api/search/nguoidung', data, function (result) {
 		phantrangnguoidung(result);
 		//	addbtneditphim();
 	});
@@ -1067,7 +1087,7 @@ function searchNguoiDung() {
 
 
 function loadnguoidunglist() {
-	getAPI('/animu/api/get/nguoidung/list', function(result) {
+	getAPI('/animu/api/get/nguoidung/list', function (result) {
 
 		phantrangnguoidung(result);
 	});
@@ -1076,7 +1096,7 @@ function loadnguoidunglist() {
 
 function updatenguoidung(idnguoidung) {
 	loading();
-	getAPI('/animu/api/update/nguoidung/' + idnguoidung, function(result) {
+	getAPI('/animu/api/update/nguoidung/' + idnguoidung, function (result) {
 
 		loaded(result);
 
@@ -1088,7 +1108,7 @@ function updatenguoidung(idnguoidung) {
 //////////////////// chi tiet nguoi dung //////////////////////////////
 function loadChiTietNguoiDung() {
 
-	getAPI('/animu/api/load/chitietnguoidung', function(result) {
+	getAPI('/animu/api/load/chitietnguoidung', function (result) {
 
 		phantrangchitietnguoidung(result);
 	});
@@ -1096,19 +1116,19 @@ function loadChiTietNguoiDung() {
 
 function addbtndelete() {
 
-	$('.btn-delete-chitietnguoidung').off('click').click(function() {
+	$('.btn-delete-chitietnguoidung').off('click').click(function () {
 		var idctnguoidung = $(this).val();
-		getAPI('/animu/api/delete/all/' + idctnguoidung, function(result) {
+		getAPI('/animu/api/delete/all/' + idctnguoidung, function (result) {
 
 			loadChiTietNguoiDung();
 			loaded(result);
 		});
 	});
 
-	$('.btn-delete-chitietnguoidung-cmt').off('click').click(function() {
+	$('.btn-delete-chitietnguoidung-cmt').off('click').click(function () {
 		var idctnguoidung = $(this).val();
 
-		getAPI('/animu/api/delete/cmt/' + idctnguoidung, function(result) {
+		getAPI('/animu/api/delete/cmt/' + idctnguoidung, function (result) {
 
 			loadChiTietNguoiDung();
 			loaded(result);
@@ -1118,7 +1138,7 @@ function addbtndelete() {
 }
 
 function addClickSearchCTNguoiDung() {
-	$('#searchct').off('click').click(function() {
+	$('#searchct').off('click').click(function () {
 		searchChiTietNguoiDung();
 	});
 }
@@ -1130,7 +1150,7 @@ function searchChiTietNguoiDung() {
 	}
 
 
-	PostAPINotJson('/animu/api/search/chitietnguoidung', data, function(result) {
+	PostAPINotJson('/animu/api/search/chitietnguoidung', data, function (result) {
 		phantrangchitietnguoidung(result);
 	});
 
@@ -1139,7 +1159,7 @@ function searchChiTietNguoiDung() {
 function addClickMail() {
 
 	// gui
-	$('#btn-send').off('click').click(function() {
+	$('#btn-send').off('click').click(function () {
 		loading();
 		var formData = new FormData();
 		// Add files to the form data
@@ -1161,16 +1181,16 @@ function addClickMail() {
 
 
 
-		postwithfile('/animu/control/guimail', formData, function(result) {
+		postwithfile('/animu/control/guimail', formData, function (result) {
 			loaded(result);
 		});
 
 	});
 
 	/// them vao ds gui
-	$('#btn-load').off('click').click(function() {
+	$('#btn-load').off('click').click(function () {
 		var type = $('#selectOption').val();
-		getAPI('/animu/api/add/listmail/' + type, function(result) {
+		getAPI('/animu/api/add/listmail/' + type, function (result) {
 			loadlistEmail(result);
 		});
 	});
@@ -1178,7 +1198,7 @@ function addClickMail() {
 }
 
 function clearMail() {
-	getAPI('/animu/api/clear/listmail', function() {
+	getAPI('/animu/api/clear/listmail', function () {
 
 	});
 }
@@ -1186,7 +1206,7 @@ function clearMail() {
 function loadlistEmail(result) {
 	var movieList = $('#body-email');
 	movieList.empty();
-	$.each(result, function(index, movie) {
+	$.each(result, function (index, movie) {
 		var date = new Date(movie.ngaytao);
 
 
@@ -1235,7 +1255,7 @@ function loadlistEmail(result) {
 
 function clickXuatExcel() {
 
-	$('#btn_xuat_excel').off('click').click(function() {
+	$('#btn_xuat_excel').off('click').click(function () {
 		loading();
 		window.location.href = "/animu/api/export/Excel";
 		loaded('1, Xuất file thành công');
@@ -1247,7 +1267,7 @@ function clickXuatExcel() {
 
 //////////////////Import Excel//////////////////////////////
 function clickImportExcel() {
-	$('#btn_import_excel').off('click').click(function() {
+	$('#btn_import_excel').off('click').click(function () {
 		var fileinput = document.getElementById("file-input");
 		var file = fileinput.files[0];
 		var form = new FormData();
@@ -1258,10 +1278,10 @@ function clickImportExcel() {
 			data: form,
 			processData: false,  // không xử lý dữ liệu trước khi gửi
 			contentType: false,  // không đặt Content-Type
-			success: function(response) {
+			success: function (response) {
 				console.log('File uploaded successfully:', response);
 			},
-			error: function(xhr, status, error) {
+			error: function (xhr, status, error) {
 				console.error('Error uploading file:', error);
 			}
 		});
@@ -1272,7 +1292,7 @@ function clickImportExcel() {
 /////////////////  Tap phim ///////////////////////
 
 function loadlistTapphim() {
-	getAPI('/animu/api/get/tapphim', function(result) {
+	getAPI('/animu/api/get/tapphim', function (result) {
 		phantrangTapPhim(result);
 	});
 }
@@ -1292,7 +1312,7 @@ function phantrangTapPhim(result) {
 		var movieList = $('#body-tapphim');
 		movieList.empty();
 
-		$.each(paginatedMovies, function(index, movie) {
+		$.each(paginatedMovies, function (index, movie) {
 
 			var listItem = $('<tr class="movie-item text-center">');
 			listItem.append('<td>' + movie.idtapphim + '</td>');
@@ -1321,7 +1341,7 @@ function phantrangTapPhim(result) {
 
 		// Add "Go to First Page" and "Go to Last Page" buttons
 		pagination.append($('<span class="page-item go-to-first">1</span>').attr('data-target', 1));
-		if (totalPages > 2) {
+		if (totalPages > 1) {
 			pagination.append($('<span class="page-item go-to-last">' + totalPages + '</span>').attr('data-target', totalPages));
 		}
 
@@ -1329,7 +1349,7 @@ function phantrangTapPhim(result) {
 		updateVisiblePages(currentPage);
 
 		// Setup click handlers
-		pagination.on('click', '.page-item', function(e) {
+		pagination.on('click', '.page-item', function (e) {
 
 			var page = $(this).attr('data-target');// lay gia tri cua trang duoc chon
 
@@ -1339,7 +1359,7 @@ function phantrangTapPhim(result) {
 		});
 
 		// Click handler for "Go to First Page"
-		pagination.on('click', '.go-to-first', function(e) {
+		pagination.on('click', '.go-to-first', function (e) {
 
 			currentPage = 1;
 			displayMovies(movies, currentPage);
@@ -1347,7 +1367,7 @@ function phantrangTapPhim(result) {
 		});
 
 		// Click handler for "Go to Last Page"
-		pagination.on('click', '.go-to-last', function(e) {
+		pagination.on('click', '.go-to-last', function (e) {
 
 			currentPage = totalPages;
 			displayMovies(movies, currentPage);
@@ -1377,7 +1397,7 @@ function phantrangTapPhim(result) {
 	}
 
 	function updatePaginationUI(currentPage) {
-		$('#pagination .page-item').removeClass('active').filter(function() {
+		$('#pagination .page-item').removeClass('active').filter(function () {
 			return $(this).attr('data-target') == currentPage;
 		}).addClass('active');
 	}
@@ -1403,10 +1423,10 @@ function addbtnClickTapphim() {
 
 		var url = '/animu/api/insert/tapphim';
 
-		PostAPI(url, data, function(result) {
+		PostAPI(url, data, function (result) {
 			loaded(result);
 			// them sua xong => cap nhat 
-			getAPI('/animu/api/get/tapphim', function(result) {
+			getAPI('/animu/api/get/tapphim', function (result) {
 				phantrangTapPhim(result);
 
 
@@ -1430,11 +1450,11 @@ function addbtnClickTapphim() {
 
 		};
 
-		PostAPI(url + idtapphim, data, function(result) {
+		PostAPI(url + idtapphim, data, function (result) {
 
 			loaded(result);
 			// chinh sua xong => load lai du lieu
-			getAPI('/animu/api/get/tapphim', function(result) {
+			getAPI('/animu/api/get/tapphim', function (result) {
 				phantrangTapPhim(result);
 
 
@@ -1450,11 +1470,11 @@ function addbtnClickTapphim() {
 		var url = '/animu/api/delete/tapphim/';
 
 
-		getAPI(url + idtapphim, function(result) {
+		getAPI(url + idtapphim, function (result) {
 
 			loaded(result);
 			// chinh sua xong => load lai du lieu
-			getAPI('/animu/api/get/tapphim', function(result) {
+			getAPI('/animu/api/get/tapphim', function (result) {
 				phantrangTapPhim(result);
 
 
@@ -1467,10 +1487,10 @@ function addbtnClickTapphim() {
 function addbtnedittapphim() {
 
 
-	$('.btn-edit-tapphim').off('click').click(function() {
+	$('.btn-edit-tapphim').off('click').click(function () {
 		var idtapphim = $(this).val();
 
-		getAPI('/animu/api/get/tapphim/' + idtapphim, function(result) {
+		getAPI('/animu/api/get/tapphim/' + idtapphim, function (result) {
 
 			$('#tapphim-idtapphim').val(result.idtapphim);
 			$('#tapphim-tentap').val(result.tentap);
@@ -1505,10 +1525,10 @@ function addbtnedittapphim() {
 
 //////////////////////////////////// nha sx  ///////////////////////////////////
 function loadnhasx() {
-	getAPI('/animu/api/get/listnhasx', function(result) {
+	getAPI('/animu/api/get/listnhasx', function (result) {
 		var listItem = '';
 
-		$.each(result, function(index, movie) {
+		$.each(result, function (index, movie) {
 
 			listItem += ('<tr class="text-center">');
 			listItem += ('<td>' + movie.idnhasxvadv + '</td>');
@@ -1540,7 +1560,7 @@ function loadnhasx() {
 
 function addClickSuaNhasx() {
 	$('#btn-sua-nhasx').off('click').click(() => {
-	console.log('jhij');
+		console.log('jhij');
 		loading();
 		var idnhasxvadv = $('#idnhasxvadv').val();
 		var url = '/animu/api/update/nhasx/';
@@ -1551,7 +1571,7 @@ function addClickSuaNhasx() {
 
 		};
 
-		PostAPI(url + idnhasxvadv, data, function(result) {
+		PostAPI(url + idnhasxvadv, data, function (result) {
 
 			loaded(result);
 			// chinh sua xong => load lai du lieu
@@ -1562,10 +1582,10 @@ function addClickSuaNhasx() {
 }
 
 function addClickEditNhasx() {
-	$('.btn-edit-nhasx').off('click').click(function() {
+	$('.btn-edit-nhasx').off('click').click(function () {
 		var idnhasxvadv = $(this).val();
 
-		getAPI('/animu/api/get/nhasx/' + idnhasxvadv, function(result) {
+		getAPI('/animu/api/get/nhasx/' + idnhasxvadv, function (result) {
 
 			$('#idnhasxvadv').val(result.idnhasxvadv);
 			$('#idphim').val(result.idphim);
@@ -1602,17 +1622,17 @@ function addClickEditNhasx() {
 }
 
 //////////////////////////////// phan loai /////////////////////////////////
-function addClickphanloai(){
-	
-	
-	getAPI('/animu/api/get/phanloai', function(result) {
+function addClickphanloai() {
+
+
+	getAPI('/animu/api/get/phanloai', function (result) {
 
 		$('#idphim').val(result.idphim);
 		$('#loaiphim').val(result.loaiphim);
 		$('#theloai').val(result.theloai);
 		$('#quocgia').val(result.quocgia);
 		$('#nam').val(result.nam);
-		
+
 
 		$('#phanloai-edition').addClass('active');
 		$('#phanloai-edition').addClass('show');
@@ -1623,8 +1643,8 @@ function addClickphanloai(){
 		$('#phanloai-list').removeClass('show');
 		$('#phanloai-list-tab').removeClass('active');
 		$('#phanloai-list-tab').attr('aria-selected', 'false');
-		
-	
+
+
 
 
 
@@ -1633,22 +1653,22 @@ function addClickphanloai(){
 	});
 }
 
-function addclickPhanLoai(){
+function addclickPhanLoai() {
 	// cap nhat
 	$('#btn-sua-phanloai').off('click').click(() => {
 		loading();
-		
+
 		var url = '/animu/api/update/phanloai';
 		var data = {
 			loaiphim: $('#loaiphim').val(),
 			nam: $('#nam').val(),
 			quocgia: $('#quocgia').val(),
 			theloai: $('#theloai').val(),
-			
+
 
 		};
 
-		PostAPI(url, data, function(result) {
+		PostAPI(url, data, function (result) {
 
 			loaded(result);
 			// chinh sua xong => load lai du lieu
@@ -1658,8 +1678,8 @@ function addclickPhanLoai(){
 	});
 }
 
-function loadlistPhanLoai(){
-	getAPI('/animu/api/get/phanloai', function(result) {
+function loadlistPhanLoai() {
+	getAPI('/animu/api/get/phanloai', function (result) {
 
 
 		if (result.length != 0) {
@@ -1677,12 +1697,12 @@ function loadlistPhanLoai(){
 			$('#body-phanloai').html(listItem);
 
 			////
-			$('.btn-edit-phanloai').off('click').click(function() {
+			$('.btn-edit-phanloai').off('click').click(function () {
 				addClickphanloai();
 			});
 		}
 
-addClickphanloai();// tai len form
+		addClickphanloai();// tai len form
 	});
 }
 

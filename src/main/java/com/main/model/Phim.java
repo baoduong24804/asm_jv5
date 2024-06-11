@@ -3,7 +3,10 @@ package com.main.model;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+
+import com.main.repository.PhimRepository;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -21,26 +24,29 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Phim {
+
+	public static int tongsotap;
+
 	@Id
 	private int idphim;
 	private String tieude;
 	private String slug;
 	private String thumb_url;
 	private String poster_url;
-	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	// @DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date ngaytao;
 	private boolean active;
-	
+
 	@OneToMany(mappedBy = "phim", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<TapPhim> tapphim;
-	
+	private List<TapPhim> tapphim;
+
 	@OneToOne(mappedBy = "phim", cascade = CascadeType.ALL, orphanRemoval = true)
-    private ChiTietPhim chitietphim;
-	
+	private ChiTietPhim chitietphim;
+
 	@OneToMany(mappedBy = "phim", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<YeuThich> yeuThichs;
-	
+	private List<YeuThich> yeuThichs;
+
 	@OneToMany(mappedBy = "phim", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ChiTietNguoiDung> chiTietNguoiDungs;
-	
+	private List<ChiTietNguoiDung> chiTietNguoiDungs;
+
 }

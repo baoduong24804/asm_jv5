@@ -23,14 +23,15 @@ public class NguoiDung {
 	private String email;
 	@NotBlank(message = "Vui lòng nhập mật khẩu")
 	private String password;
-	private LocalDate  ngaytao;
+	private LocalDate ngaytao;
 	private boolean active;
 	private int role;
-	
+	private String img;
+
 	@OneToMany(mappedBy = "nguoiDung", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<YeuThich> yeuThichs;
-	
+	private List<YeuThich> yeuThichs;
+
 	@OneToMany(mappedBy = "nguoiDung", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ChiTietNguoiDung> chiTietNguoiDungs;
-	
+	private List<ChiTietNguoiDung> chiTietNguoiDungs;
+
 }

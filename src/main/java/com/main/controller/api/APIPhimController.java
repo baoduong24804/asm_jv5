@@ -21,36 +21,55 @@ import com.main.repository.PhimRepository;
 public class APIPhimController {
 	@Autowired
 	PhimRepository phimRepository;
-	
+
 	@Autowired
 	ChiTietPhimRepository chiTietPhimRepository;
 
 	public static Integer editPhim = null;
-// edit phim	
-@GetMapping("/animu/api/get/editPhim")
-public String geteditPhim() {
-	if(APIPhimController.editPhim != null) {
-		Phim phim = phimRepository.findById(APIPhimController.editPhim).get();
-		return phim.getIdphim()+"," + phim.getTieude();
+
+	// edit phim
+	@GetMapping("/animu/api/get/editPhim")
+	public String geteditPhim() {
+		if (APIPhimController.editPhim != null) {
+			Phim phim = phimRepository.findById(APIPhimController.editPhim).get();
+			return phim.getIdphim() + "," + phim.getTieude();
+		}
+		return "Vui lòng chọn phim cần chỉnh sửa";
 	}
-	return "Vui lòng chọn phim cần chỉnh sửa";
-}
 
-// xóa phim
-@GetMapping("/animu/api/phim/clearPhim")
-public String getclearPhim() {
-	APIPhimController.editPhim = null;
-		
-	
-	return " ";
-}
+	// xóa phim
+	@GetMapping("/animu/api/phim/clearPhim")
+	public String getclearPhim() {
+		APIPhimController.editPhim = null;
 
-@GetMapping("/animu/api/get/phim")
-public Phim getPhim() {
+		return " ";
+	}
 
-	Phim phim = new Phim();
-	if(APIPhimController.editPhim != null) {
-		Phim p = phimRepository.findById(APIPhimController.editPhim).get();
+	@GetMapping("/animu/api/get/phim")
+	public Phim getPhim() {
+
+		Phim phim = new Phim();
+		if (APIPhimController.editPhim != null) {
+			Phim p = phimRepository.findById(APIPhimController.editPhim).get();
+			//
+			phim.setIdphim(p.getIdphim());
+			phim.setActive(p.isActive());
+			phim.setNgaytao(p.getNgaytao());
+			phim.setPoster_url(p.getPoster_url());
+			phim.setSlug(p.getSlug());
+			phim.setThumb_url(p.getThumb_url());
+			phim.setTieude(p.getTieude());
+			return phim;
+		}
+
+		return new Phim();
+	}
+
+	@GetMapping("/animu/api/get/phim/{idphim}")
+	public Phim getMethodName(@PathVariable("idphim") int idphim) {
+
+		Phim phim = new Phim();
+		Phim p = phimRepository.findById(idphim).get();
 		//
 		phim.setIdphim(p.getIdphim());
 		phim.setActive(p.isActive());
@@ -59,47 +78,23 @@ public Phim getPhim() {
 		phim.setSlug(p.getSlug());
 		phim.setThumb_url(p.getThumb_url());
 		phim.setTieude(p.getTieude());
+		APIPhimController.editPhim = idphim;
 		return phim;
 	}
 
-	
-    return new Phim();
-}
+	@PostMapping("/animu/api/search/phim")
+	public List<Phim> getMethodName(@RequestParam(name = "key", required = false) String key) {
+		List<Phim> listp = null;
 
-	
-	
-@GetMapping("/animu/api/get/phim/{idphim}")
-public Phim getMethodName(@PathVariable("idphim") int idphim) {
+		if (key == null) {
+			listp = phimRepository.findAll();
+		} else {
+			listp = phimRepository.findAllPhimLikeTieuDe(key);
+		}
 
-	Phim phim = new Phim();
-	Phim p = phimRepository.findById(idphim).get();
-	//
-	phim.setIdphim(p.getIdphim());
-	phim.setActive(p.isActive());
-	phim.setNgaytao(p.getNgaytao());
-	phim.setPoster_url(p.getPoster_url());
-	phim.setSlug(p.getSlug());
-	phim.setThumb_url(p.getThumb_url());
-	phim.setTieude(p.getTieude());
-	APIPhimController.editPhim = idphim;
-    return phim;
-}
+		List<Phim> list = new ArrayList<Phim>();
+		//
 
-
-@PostMapping("/animu/api/search/phim")
-public List<Phim> getMethodName(@RequestParam(name = "key",required = false) String key) {
-	List<Phim> listp = null;
-	
-	if(key == null) {
-		listp = phimRepository.findAll();
-	}else {
-		listp = phimRepository.findAllPhimLikeTieuDe(key);
-	}
-	
-	
-	List<Phim> list =  new ArrayList<Phim>();
-	//
-	
 		for (Phim p : listp) {
 			Phim phim = new Phim();
 			phim.setIdphim(p.getIdphim());
@@ -111,45 +106,41 @@ public List<Phim> getMethodName(@RequestParam(name = "key",required = false) Str
 			phim.setTieude(p.getTieude());
 			list.add(phim);
 		}
-	
 
-
-    return list;
-}
-
+		return list;
+	}
 
 	@PostMapping("/animu/api/update/phim/{idphim}")
 	public String update(@PathVariable("idphim") String idphim, @RequestBody Phim phim) {
 		Phim p = null;
 		try {
-		
+
 			p = phimRepository.findById(Integer.parseInt(idphim)).get();
-			
+
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
 			return "0,Cập nhật thất bại";
 		}
-		
+
 		p.setActive(phim.isActive());
 		p.setPoster_url(phim.getPoster_url().trim());
 		p.setSlug(phim.getSlug().trim());
 		p.setThumb_url(phim.getThumb_url().trim());
 		p.setTieude(phim.getTieude().trim());
-		
+
 		phimRepository.save(p);
-		
-		
-		return "1,Cập nhật thành công Phim[ idphim :"+String.valueOf(p.getIdphim())+"]";
-		
+
+		return "1,Cập nhật thành công Phim[ idphim :" + String.valueOf(p.getIdphim()) + "]";
+
 	}
 
 	@PostMapping("/animu/api/insert/phim")
 	public String insert(@RequestBody Phim phim) {
 		Phim p = new Phim();
-	
+
 		try {
-			
+
 			p.setActive(phim.isActive());
 			p.setPoster_url(phim.getPoster_url());
 			p.setSlug(phim.getSlug());
@@ -157,31 +148,24 @@ public List<Phim> getMethodName(@RequestParam(name = "key",required = false) Str
 			p.setTieude(phim.getTieude());
 			p.setNgaytao(new Date());
 			p.setIdphim(phimRepository.findMaxId() + 1);
-			
+
 			phimRepository.save(p);
-			
-			//them chi tiet cho phim
+
+			// them chi tiet cho phim
 			ChiTietPhim chiTietPhim = new ChiTietPhim();
 			chiTietPhim.setIdphim(p.getIdphim());
 			chiTietPhimRepository.save(chiTietPhim);
-			
-			
-			
+
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
 			return "0,Thêm thất bại";
 		}
-		
-		
-		
+
 		phimRepository.save(p);
-		
-		
-		return "1,Thêm thành công Phim[ idphim :"+String.valueOf(p.getIdphim())+"]";
-		
+
+		return "1,Thêm thành công Phim[ idphim :" + String.valueOf(p.getIdphim()) + "]";
+
 	}
-	
-	
 
 }

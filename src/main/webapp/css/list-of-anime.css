@@ -1,0 +1,124 @@
+@charset "UTF-8";
+
+.body-dark {
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 0;
+    margin: 0;
+    background-color: #333;
+}
+.body-white {
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 0;
+    margin: 0;
+
+    background-color: #fff;
+}
+
+.btn-success {
+    margin: 0.2em;
+    font-size: 14px;
+}
+
+.card {
+    background-color: #2e2e3e;
+    border: none;
+    color: #ffffff;
+}
+
+.dropdown-menu {
+    background-color: #1a2b3c;
+    color: #00ffcc;
+}
+
+.dropdown-item {
+    color: #00ffcc;
+}
+
+.dropdown-item:hover {
+    background-color: #283a4d;
+    color: #00ffcc;
+}
+
+.dropdown-item input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+.dropdown-menu label {
+    width: 100%;
+    padding: 0.25rem 1.5rem;
+}
+
+.btn-secondary {
+    background-color: #1a2b3c;
+    border: none;
+}
+
+.btn-secondary:hover,
+.btn-secondary:focus,
+.btn-secondary:active {
+    background-color: #283a4d;
+}
+
+.btn-primary {
+    background-color: #007bff;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active {
+    background-color: #0056b3;
+}
+
+.page-link {
+    color: black !important;
+    border: 2px solid black; /* Border đen */
+}
+.page-item a {
+    background-color: rgb(255, 255, 255); /* dark color */
+}
+.page-item.disabled a {
+    background-color: #666666; /* grey color for disabled */
+}
+.page-item.active a {
+    background-color: rgba(10, 105, 249, 0.615); /* blue color for active */
+}
+.page-item a:hover {
+    background-color: rgba(10, 105, 249, 0.615);
+}
+.ellipsis-span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /* Hiển thị dấu "..." nếu nội dung bị cắt */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    /* Số dòng tối đa */
+    -webkit-box-orient: vertical;
+}
+.row > * {
+    padding-right: 0; /* Đặt padding-right là 0 */
+}
+.row {
+    margin-right: 0;
+}
+.nowrap {
+    margin: 5px;
+}
+.d-flex-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.theme-dark {
+    color: white;
+}
+.theme-white {
+    color: black;
+}
+.black-background {
+    color: white; /* Màu chữ trắng */
+    background-color: black; /* Nền đen */
+    padding: 10px; /* Khoảng cách bên trong */
+    border-radius: 5px; /* Bo tròn góc */
+    opacity: 0.5; /* Độ mờ */
+    display: inline-block; /* Để padding hoạt động đúng */
+}

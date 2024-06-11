@@ -1,31 +1,33 @@
 <!-- Form Tập phim -->
 <div id="tapphim-form" class="form-section active">
     <ul class="nav nav-tabs" id="tapphimTab" role="tablist">
-        <li class="nav-item"><a class="nav-link active" id="tapphim-edition-tab" data-toggle="tab" href="#tapphim-edition" role="tab">Chỉnh sửa</a></li>
-        <li class="nav-item"><a class="nav-link" id="tapphim-list-tab" data-toggle="tab" href="#tapphim-list" role="tab">Danh sách</a></li>
+        <li class="nav-item"><a class="nav-link active" id="tapphim-edition-tab" data-toggle="tab"
+                href="#tapphim-edition" role="tab">Chỉnh sửa</a></li>
+        <li class="nav-item"><a class="nav-link" id="tapphim-list-tab" data-toggle="tab" href="#tapphim-list"
+                role="tab">Danh sách</a></li>
     </ul>
     <div class="tab-content">
-    <div class="alert alert-primary mt-2" role="alert" id="phimSelected">
-			Vui lòng chọn phim cần chỉnh sửa</div>
+        <div class="alert alert-primary mt-2" role="alert" id="phimSelected">
+            Vui lòng chọn phim cần chỉnh sửa</div>
         <div class="tab-pane fade show active" id="tapphim-edition" role="tabpanel">
             <h2 class="mt-3">
                 Chỉnh sửa Tập phim <span class="text-primary"></span>
             </h2>
             <span id="mes"></span>
-       
+
             <form action="phim/edit/tapphim" method="post">
-               
-                    <div class="form-group">
-                        <label for="tapphim-idtapphim">ID Tập phim:</label>
-                        <input type="text" id="tapphim-idtapphim" name="idtapphim" class="form-control" value="" />
-                    </div>
-                
+
+                <div class="form-group">
+                    <label for="tapphim-idtapphim">ID Tập phim:</label>
+                    <input type="text" id="tapphim-idtapphim" name="idtapphim" class="form-control" value="" />
+                </div>
+
 
                 <div class="form-group">
                     <label for="tapphim-tentap">Tên tập:</label>
                     <input type="text" id="tapphim-tentap" name="tentap" class="form-control" value="" />
                 </div>
-                                <div class="form-group">
+                <div class="form-group">
                     <label for="tapphim-server">Server:</label>
                     <input type="text" id="tapphim-server" name="server" class="form-control" value="" />
                 </div>
@@ -41,9 +43,11 @@
                     <label for="tapphim-link2">Link 2:</label>
                     <input type="text" id="tapphim-link2" name="link2" class="form-control" value="" />
                 </div>
-                <button type="button" class="btn btn-primary" id="btn_them" name="btn-them-tap-phim" value="true">Thêm</button>
-                <button type="button" class="btn btn-success" id="btn_sua" name="btn-chinh-sua-tap-phim" value="true">Chỉnh sửa</button>
-                <button type="button" class="btn btn-danger"  id="btn_xoa">Xóa</button>
+                <button type="button" class="btn btn-primary" id="btn_them" name="btn-them-tap-phim"
+                    value="true">Thêm</button>
+                <button type="button" class="btn btn-success" id="btn_sua" name="btn-chinh-sua-tap-phim"
+                    value="true">Chỉnh sửa</button>
+                <button type="button" class="btn btn-danger" id="btn_xoa">Xóa</button>
             </form>
         </div>
         <div class="tab-pane fade" id="tapphim-list" role="tabpanel">
@@ -52,9 +56,9 @@
                 <thead>
                     <tr>
                         <th>ID Tập phim</th>
-                       <th>Tên tập</th>
+                        <th>Tên tập</th>
                         <th>Server</th>
-                        
+
                         <th>Slug</th>
                         <th>Link</th>
                         <th>Link 2</th>
@@ -62,7 +66,7 @@
                     </tr>
                 </thead>
                 <tbody id="body-tapphim">
-                    
+
                 </tbody>
             </table>
             <div id="pagination" class="text-center"></div>
