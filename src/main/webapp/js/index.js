@@ -2,6 +2,8 @@
 
 $(document).ready(function () {
 
+
+
     $('.hover').off('click').click(function () {
         window.location.href = '/animu/listmovie';
     });

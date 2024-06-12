@@ -126,7 +126,7 @@
 
               <div>
                 <button class="btn btn-danger mr-2" id="btn-like">
-                  ${like ? 'Đã thích' : 'Like'}
+                  <div id="like-status">${like ? 'Đã thích' : 'Thích'}</div>
                 </button>
 
               </div>
@@ -281,7 +281,17 @@
           $('#btn-like').off('click').click(function () {
 
             $.get('/animu/listmovie/information/like', function (response) {
-              console.log('Server response:', response);
+              //console.log('Server response:', response);
+              var status = document.getElementById('like-status');
+              var text = status.innerHTML;
+              if (text == 'Thích') {
+                status.innerText = 'Đã thích';
+                // console.log(1);
+              } else {
+                status.innerText = 'Thích';
+                // console.log(0);
+              }
+              //console.log(status);
             });
           });
 

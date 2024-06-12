@@ -8,10 +8,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.main.model.NguoiDung;
 import com.main.model.Phim;
 import com.main.repository.NguoiDungRepository;
 import com.main.repository.PhimRepository;
+import com.main.service.SessionService;
 import com.utils.Reader;
+import com.utils.UserCurrent;
+
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 public class APIController {
@@ -19,6 +24,8 @@ public class APIController {
 	NguoiDungRepository nguoiDungRepository;
 	@Autowired
 	PhimRepository phimRepository;
+	@Autowired
+	SessionService service;
 
 	@GetMapping("animu/api/{option}")
 	public String getMethodName(@PathVariable("option") int option) {
@@ -68,6 +75,20 @@ public class APIController {
 		String s = "";
 		s = nguoiDungRepository.findByNoActive().size() + "," + "" + phimRepository.findByNoActive().size();
 		return s;
+	}
+
+	@GetMapping("animu/api/get/usercurrent")
+	public NguoiDung usercurrent() {
+		NguoiDung ng = new NguoiDung();
+		NguoiDung nguoiDung = null;
+		nguoiDung = UserCurrent.getNguoiDung();
+		if (nguoiDung == null) {
+			nguoiDung = (NguoiDung) service.get("user");
+		}
+		ng.setUser_id(nguoiDung.getUser_id());
+		ng.setImg(nguoiDung.getImg());
+		ng.setUsername(nguoiDung.getUsername());
+		return ng;
 	}
 
 	// @GetMapping("animu/api/load/listphim")

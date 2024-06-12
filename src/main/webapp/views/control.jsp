@@ -34,9 +34,9 @@
 						<nav id="nav" class="col-md-2 d-md-block bg-dark sidebar pt-3 pb-3">
 
 							<div class="text-center m-2">
-								<img style="width: 50px;height: 50px;border-radius: 50%" alt=""
+								<img id="userimg" style="width: 50px;height: 50px;border-radius: 50%" alt=""
 									src="https://th.bing.com/th/id/OIP.PqBYGErQeWQWhbA_VeUBDQHaHa?rs=1&pid=ImgDetMain">
-								<p class="text-white text-truncate">Ty Bao</p>
+								<p class="text-white text-truncate" id="username">Ty Bao</p>
 								<hr class="white-hr">
 							</div>
 

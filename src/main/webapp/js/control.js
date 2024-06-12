@@ -817,6 +817,13 @@ function addClickForPhim() {
 // thêm các sự kiện hoặc load dữ liệu cần thiết cho trang
 $(document).ready(function () {
 
+	getAPI('/animu/api/get/usercurrent', function (result) {
+		$('#username').text(result.username);
+		$('#userimg').attr('src', result.img);
+		//console.log(result);
+	});
+
+
 	getAPI('/animu/api/' + 1, function (result) {
 		html = result;
 		$('#main').html(html);

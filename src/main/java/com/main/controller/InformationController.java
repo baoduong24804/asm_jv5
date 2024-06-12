@@ -18,11 +18,14 @@ import com.main.model.ChiTietNguoiDungHelper;
 import com.main.model.NguoiDung;
 import com.main.model.Phim;
 import com.main.model.TapPhim;
+import com.main.model.YeuThich;
 import com.main.repository.ChiTietNguoiDungRepository;
 import com.main.repository.NguoiDungRepository;
 import com.main.repository.PhimRepository;
 import com.main.repository.TapPhimRepository;
+import com.main.repository.YeuThichRepository;
 import com.main.service.SessionService;
+import com.utils.UserCurrent;
 
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -47,6 +50,9 @@ public class InformationController {
 
 	@Autowired
 	NguoiDungRepository nguoiDungRepository;
+
+	@Autowired
+	YeuThichRepository yeuThichRepository;
 
 	private Integer idphim = null;
 	private Integer iduser = null;
@@ -109,6 +115,7 @@ public class InformationController {
 					ChiTietNguoiDung ct = new ChiTietNguoiDung();
 					ct.set_like(true);
 					ct.setDate(new Date());
+					ct.setIdchitiet(chiTietNguoiDungRepository.findMaxId() + 1);
 					if (nguoiDungRepository.findById(iduser) != null) {
 						ct.setNguoiDung(nguoiDungRepository.findById(iduser).get());
 					}
@@ -118,6 +125,10 @@ public class InformationController {
 					}
 					chiTietNguoiDungRepository.save(ct);
 				}
+				YeuThich yeuThich = new YeuThich();
+				yeuThich.setIdyeuthich(yeuThichRepository.findMaxId() + 1);
+				yeuThich.setNguoiDung(UserCurrent.getNguoiDung());
+				yeuThich.setPhim(phimresp.findById(idphim).get());
 			} catch (Exception e) {
 				// TODO: handle exception
 				e.printStackTrace();
@@ -172,6 +183,10 @@ public class InformationController {
 					ct.setImg(chiTietNguoiDung.getNguoiDung().getImg());
 					if (user != null) {
 						if (ct.getUser_id() == user.getUser_id()) {
+							List<YeuThich> list = yeuThichRepository.findAll();
+							if (list.size() > 0) {
+								ct.setLike(true);
+							}
 							model.addAttribute("like", ct.isLike());
 						}
 					}
